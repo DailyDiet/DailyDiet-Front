@@ -38,8 +38,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://buefy.github.io/#/documentation
-    'nuxt-buefy',
+    // Doc: https://bootstrap-vue.js.org
+    'bootstrap-vue/nuxt',
   ],
   /*
   ** Build configuration

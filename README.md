@@ -1,6 +1,6 @@
-# Daily-diet
+# daily-diet
 
-> Daily diet front
+> daily diet front
 
 ## Build Setup
 
