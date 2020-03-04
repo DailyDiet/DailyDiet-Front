@@ -5,7 +5,6 @@
       [$style.selectedBox]: this.activePlan === this.planName
     }"
     @click="updateActivePlan"
-    @keydown.space="updateActivePlan"
   >
     <slot name="content"></slot>
   </div>
@@ -49,5 +48,6 @@ export default {
 
 .selectedBox {
   background-color: #3b8070;
+  color: white;
 }
 </style>
