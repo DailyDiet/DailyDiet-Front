@@ -1,23 +1,35 @@
 {
-  "name": "daily-diet",
-  "version": "1.0.0",
-  "description": "daily diet front",
-  "author": "iman malekian",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
-    "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.8.0",
-    "node-sass": "^4.13.1",
-    "nuxt": "^2.0.0",
-    "sass-loader": "^8.0.2",
-    "vue": "^2.6.11"
-  },
-  "devDependencies": {}
+	"name": "daily-diet",
+	"version": "1.0.0",
+	"description": "daily diet front",
+	"author": "iman malekian",
+	"private": true,
+	"scripts": {
+		"dev": "nuxt",
+		"build": "nuxt build",
+		"start": "nuxt start",
+		"generate": "nuxt generate",
+		"lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+		"lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5.12.1",
+		"bootstrap": "^4.4.1",
+		"bootstrap-vue": "^2.8.0",
+		"node-sass": "^4.13.1",
+		"nuxt": "^2.0.0",
+		"sass-loader": "^8.0.2",
+		"vue": "^2.6.11"
+	},
+	"devDependencies": {
+		"@nuxtjs/eslint-config": "^2.0.2",
+		"babel-eslint": "8",
+		"eslint": "^6.8.0",
+		"eslint-config-prettier": "^6.10.1",
+		"eslint-loader": "^3.0.3",
+		"eslint-plugin-nuxt": "^0.5.2",
+		"eslint-plugin-prettier": "^3.1.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"prettier": "^2.0.1"
+	}
 }
