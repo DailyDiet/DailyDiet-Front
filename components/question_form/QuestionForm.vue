@@ -24,16 +24,20 @@
         </selectable-plan>
       </b-col>
     </b-row>
+    <b-button v-b-modal.question_form_modal>Launch demo modal</b-button>
+    <QuestionFormModal />
   </b-container>
 </template>
 
 <script>
 import selectablePlan from "~/components/selectablePlan/SelectablePlan";
+import QuestionFormModal from "../QuestionFormModal";
 
 export default {
   name: "QuestionForm",
   components: {
-    selectablePlan
+    selectablePlan,
+    QuestionFormModal
   },
   data: () => ({
     filterOptions: [
