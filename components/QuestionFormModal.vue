@@ -174,29 +174,29 @@
 <script>
 export default {
   data: () => ({
-    selected: "radio1",
+    selected: "",
     options: [
       { text: "Lose weight", value: "radio1" },
       { text: "Maintain", value: "radio2" },
       { text: "Build muscle", value: "radio3" }
     ],
-    selected2: "radio1",
+    selected2: "",
     options2: [
       { text: "U.S. Standard", value: "radio1" },
       { text: "Metric", value: "radio2" }
     ],
-    selected3: "radio1",
+    selected3: "",
     options3: [
       { text: "Male", value: "radio1" },
       { text: "Female", value: "radio2" }
     ],
-    selected4: "radio1",
+    selected4: "",
     options4: [
       { text: "Low", value: "radio1" },
       { text: "Medium", value: "radio2" },
       { text: "High", value: "radio3" }
     ],
-    selected5: "radio1",
+    selected5: "",
     options5: [
       { text: "Sedentary", value: "radio1" },
       { text: "Lightly Active", value: "radio2" },
@@ -204,7 +204,7 @@ export default {
       { text: "Very Active", value: "radio3" },
       { text: "Extremely Active", value: "radio3" }
     ],
-    selected6: "radio1",
+    selected6: "",
     options6: [
       { text: "No thanks", value: "radio1" },
       { text: "Yeah let's do it!", value: "radio2" }

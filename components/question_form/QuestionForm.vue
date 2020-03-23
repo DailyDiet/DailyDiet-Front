@@ -5,7 +5,7 @@
         v-for="item in filterOptions"
         :key="`diet_category_${item.id}`"
         :class="$style.foods"
-        col="4"
+        cols="4"
         sm="2"
       >
         <selectable-plan :plan-name="item.title" v-model="activePlan">
