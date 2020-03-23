@@ -17,7 +17,6 @@ module.exports = {
 	plugins: ['prettier'],
 	// add your custom rules here
 	rules: {
-		'standard/computed-property-even-spacing': false,
 		'vue/require-component-is': 'off',
 		'no-console': 'off',
 		'linebreak-style': 0,

@@ -9,8 +9,8 @@
 			>
 				<b-form-radio-group
 					id="input-1"
-					class="w-100"
 					v-model="selected"
+					class="w-100"
 					:options="options"
 					button-variant="outline-primary"
 					buttons
@@ -24,8 +24,8 @@
 			>
 				<b-form-radio-group
 					id="input-2"
-					class="w-100"
 					v-model="selected2"
+					class="w-100"
 					:options="options2"
 					button-variant="outline-primary"
 					buttons
@@ -39,8 +39,8 @@
 			>
 				<b-form-radio-group
 					id="input-3"
-					class="w-100"
 					v-model="selected3"
+					class="w-100"
 					:options="options3"
 					button-variant="outline-primary"
 					buttons
@@ -121,8 +121,8 @@
 			>
 				<b-form-radio-group
 					id="input-4"
-					class="w-100"
 					v-model="selected4"
+					class="w-100"
 					:options="options4"
 					button-variant="outline-primary"
 					buttons
@@ -147,8 +147,8 @@
 			>
 				<b-form-radio-group
 					id="input-4"
-					class="w-100"
 					v-model="selected6"
+					class="w-100"
 					:options="options6"
 					button-variant="outline-primary"
 					buttons
