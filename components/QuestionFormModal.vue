@@ -2,7 +2,6 @@
 	<b-modal id="question_form_modal" title="Nutrition calculator" size="lg">
 		<b-form>
 			<b-form-group
-				label-cols-sm="4"
 				label-cols-lg="4"
 				label="I want to"
 				label-for="input-1"
@@ -17,7 +16,6 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				label-cols-sm="4"
 				label-cols-lg="4"
 				label="Preferred units"
 				label-for="input-2"
@@ -31,12 +29,7 @@
 					buttons
 				/>
 			</b-form-group>
-			<b-form-group
-				label-cols-sm="4"
-				label-cols-lg="4"
-				label="I am"
-				label-for="input-3"
-			>
+			<b-form-group label-cols-lg="4" label="I am" label-for="input-3">
 				<b-form-radio-group
 					id="input-3"
 					v-model="selected3"
@@ -46,12 +39,7 @@
 					buttons
 				/>
 			</b-form-group>
-			<b-form-group
-				label-cols-sm="4"
-				label-cols-lg="4"
-				label="Height"
-				label-for="input-4"
-			>
+			<b-form-group label-cols-lg="4" label="Height" label-for="input-4">
 				<b-row>
 					<b-col cols="6">
 						<b-input-group>
@@ -75,12 +63,7 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group
-				label-cols-sm="4"
-				label-cols-lg="4"
-				label="Weight"
-				label-for="input-4"
-			>
+			<b-form-group label-cols-lg="4" label="Weight" label-for="input-4">
 				<b-row>
 					<b-col lg="6" sm="12">
 						<b-input-group>
@@ -94,12 +77,7 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group
-				label-cols-sm="4"
-				label-cols-lg="4"
-				label="Age"
-				label-for="input-4"
-			>
+			<b-form-group label-cols-lg="4" label="Age" label-for="input-4">
 				<b-row>
 					<b-col lg="6" sm="12">
 						<b-input-group>
@@ -113,12 +91,7 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group
-				label-cols-sm="4"
-				label-cols-lg="4"
-				label="Bodyfat"
-				label-for="input-4"
-			>
+			<b-form-group label-cols-lg="4" label="Bodyfat" label-for="input-4">
 				<b-form-radio-group
 					id="input-4"
 					v-model="selected4"
@@ -129,18 +102,13 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				label-cols-sm="4"
 				label-cols-lg="4"
 				label="Activity level"
 				label-for="input-4"
 			>
-				<b-form-select
-					v-model="selected5"
-					:options="options5"
-				></b-form-select>
+				<b-form-select v-model="selected5" :options="options5" />
 			</b-form-group>
 			<b-form-group
-				label-cols-sm="4"
 				label-cols-lg="4"
 				label="Set a weight goal?"
 				label-for="input-4"
@@ -160,7 +128,7 @@
 				</b-button>
 			</div>
 		</b-form>
-		<template v-slot:modal-footer>
+		<template #modal-footer>
 			<div class="w-100">
 				<b-button
 					variant="outline-primary"

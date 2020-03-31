@@ -26,8 +26,46 @@
 				</selectable-plan>
 			</b-col>
 		</b-row>
-		<b-button v-b-modal.question_form_modal class="w-25 mt-3">
-			Launch demo modal
+		<b-form-group
+			class="mt-3"
+			label-cols-sm="3"
+			label-cols-lg="3"
+			label="I want to eat"
+			label-for="calories"
+		>
+			<b-form-spinbutton
+				id="calories"
+				v-model="value"
+				min="0"
+				max="100000"
+				step="100"
+				inline
+			/>
+			<label for="calories">Calories</label>
+			<b-link class="ml-2" v-b-modal.question_form_modal>
+				<i class="fas fa-calculator" /> Not sure?
+			</b-link>
+		</b-form-group>
+		<b-form-group
+			label-cols-sm="3"
+			label-cols-lg="3"
+			label="in"
+			label-for="meal"
+		>
+			<b-form-select
+				id="meal"
+				:class="{ [$style.selectMeal]: true }"
+				v-model="selectedMeal"
+				text-field="title"
+				:options="mealsOptions"
+			/>
+		</b-form-group>
+		<b-button
+			variant="success"
+			:class="{ ['my-3']: true, [$style.selectMeal]: true }"
+			style="margin: 0px auto;"
+		>
+			Generate
 		</b-button>
 		<QuestionFormModal />
 	</b-container>
@@ -76,7 +114,20 @@ export default {
 				imageUrl: 'icon-olive',
 			},
 		],
+		mealsOptions: [
+			{ title: '1 meal', value: 1 },
+			{ title: '2 meals', value: 2 },
+			{ title: '3 meals', value: 3 },
+			{ title: '4 meals', value: 4 },
+			{ title: '5 meals', value: 5 },
+			{ title: '6 meals', value: 6 },
+			{ title: '7 meals', value: 7 },
+			{ title: '8 meals', value: 8 },
+			{ title: '9 meals', value: 9 },
+		],
+		selectedMeal: 1,
 		activePlan: '',
+		value: 0,
 	}),
 };
 </script>
@@ -104,5 +155,14 @@ export default {
 .image {
 	width: 50px;
 	height: 50px;
+}
+$desktop-width: 576px;
+.selectMeal {
+	width: 50%;
+	@media (max-width: #{$desktop-width}) {
+		width: 100%;
+	}
+}
+.generateButton {
 }
 </style>
