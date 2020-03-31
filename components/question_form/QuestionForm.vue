@@ -85,7 +85,7 @@ export default {
 		filterOptions: [
 			{
 				id: 1,
-				title: 'Anything',
+				title: 'Anythin',
 				imageUrl: 'icon-sandwich',
 			},
 			{
