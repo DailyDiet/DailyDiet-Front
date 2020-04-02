@@ -42,7 +42,7 @@
 				inline
 			/>
 			<label for="calories">Calories</label>
-			<b-link class="ml-2" v-b-modal.question_form_modal>
+			<b-link v-b-modal.question_form_modal class="ml-2">
 				<i class="fas fa-calculator" /> Not sure?
 			</b-link>
 		</b-form-group>
@@ -54,8 +54,8 @@
 		>
 			<b-form-select
 				id="meal"
-				:class="{ [$style.selectMeal]: true }"
 				v-model="selectedMeal"
+				:class="{ [$style.selectMeal]: true }"
 				text-field="title"
 				:options="mealsOptions"
 			/>
