@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div :class="$style.headerImage">
-			<QuestionForm />
+			<PlanGenerator />
 		</div>
 		<div style="height: 100vh; background-color: #ff4500;" />
 		<div style="height: 100vh; background-color: #99ff21;" />
@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import QuestionForm from '../components/question_form/QuestionForm';
+import PlanGenerator from '~/components/plan_generator/PlanGenerator.vue';
 
 export default {
-	components: { QuestionForm },
+	components: { PlanGenerator },
 	data: () => ({}),
 };
 </script>

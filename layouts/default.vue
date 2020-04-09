@@ -3,7 +3,6 @@
 		<b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
 			<b-navbar-brand href="#">
 				<img src="../assets/images/logo.png" width="30" height="30" />
-				/>
 			</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse" />
@@ -18,7 +17,6 @@
 					</b-nav-item>
 				</b-navbar-nav>
 
-				<!-- Right aligned nav items -->
 				<b-navbar-nav class="ml-auto">
 					<b-button size="sm" class="my-2 my-sm-0" type="submit">
 						Login

@@ -8,7 +8,10 @@
 				cols="4"
 				sm="2"
 			>
-				<selectable-plan v-model="activePlan" :plan-name="item.title">
+				<PlanGeneratorSelector
+					v-model="activePlan"
+					:plan-name="item.title"
+				>
 					<template #content>
 						<div :class="$style.items">
 							<img
@@ -23,7 +26,7 @@
 							}}</span>
 						</div>
 					</template>
-				</selectable-plan>
+				</PlanGeneratorSelector>
 			</b-col>
 		</b-row>
 		<b-form-group
@@ -64,22 +67,22 @@
 			variant="success"
 			:class="{ ['my-3']: true, [$style.selectMeal]: true }"
 			style="margin: 0px auto;"
+			@click="generatePlan"
 		>
 			Generate
 		</b-button>
-		<QuestionFormModal />
+		<PlanGeneratorModal />
 	</b-container>
 </template>
 
 <script>
-import QuestionFormModal from '../QuestionFormModal';
-import selectablePlan from '~/components/selectablePlan/SelectablePlan';
+import PlanGeneratorModal from './PlanGeneratorModal';
+import PlanGeneratorSelector from './PlanGeneratorSelector';
 
 export default {
-	name: 'QuestionForm',
 	components: {
-		selectablePlan,
-		QuestionFormModal,
+		PlanGeneratorSelector,
+		PlanGeneratorModal,
 	},
 	data: () => ({
 		filterOptions: [
@@ -129,6 +132,11 @@ export default {
 		activePlan: '',
 		value: 0,
 	}),
+	methods: {
+		generatePlan() {
+			this.$router.push('plan');
+		},
+	},
 };
 </script>
 
