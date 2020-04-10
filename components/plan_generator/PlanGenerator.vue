@@ -2,28 +2,28 @@
 	<b-container :class="$style.dietBox">
 		<b-row>
 			<b-col
-				v-for="item in filterOptions"
-				:key="`diet_category_${item.id}`"
+				v-for="dietType in dietTypeOptions"
+				:key="`diet_type_${dietType.id}`"
 				:class="$style.foods"
 				cols="4"
 				sm="2"
 			>
 				<PlanGeneratorSelector
-					v-model="activePlan"
-					:plan-name="item.title"
+					v-model="dietTypeSelected"
+					:plan-name="dietType.title"
 				>
 					<template #content>
 						<div :class="$style.items">
 							<img
 								:src="
-									require(`../../assets/images/filter-diet/${item.imageUrl}.png`)
+									require(`../../assets/images/filter-diet/${dietType.imageUrl}.png`)
 								"
 								:class="$style.image"
-								:alt="item.title"
+								:alt="dietType.title"
 							/>
-							<span style="font-size: 13px;">{{
-								item.title
-							}}</span>
+							<span style="font-size: 13px;">
+								{{ dietType.title }}
+							</span>
 						</div>
 					</template>
 				</PlanGeneratorSelector>
@@ -57,10 +57,10 @@
 		>
 			<b-form-select
 				id="meal"
-				v-model="selectedMeal"
+				v-model="mealSelected"
 				:class="{ [$style.selectMeal]: true }"
 				text-field="title"
-				:options="mealsOptions"
+				:options="mealOptions"
 			/>
 		</b-form-group>
 		<b-button
@@ -71,7 +71,7 @@
 		>
 			Generate
 		</b-button>
-		<PlanGeneratorModal />
+		<PlanGeneratorModal :diet-type="dietTypeSelected" />
 	</b-container>
 </template>
 
@@ -85,7 +85,8 @@ export default {
 		PlanGeneratorModal,
 	},
 	data: () => ({
-		filterOptions: [
+		dietTypeSelected: 'Anything',
+		dietTypeOptions: [
 			{
 				id: 1,
 				title: 'Anything',
@@ -117,7 +118,8 @@ export default {
 				imageUrl: 'icon-olive',
 			},
 		],
-		mealsOptions: [
+		mealSelected: 1,
+		mealOptions: [
 			{ title: '1 meal', value: 1 },
 			{ title: '2 meals', value: 2 },
 			{ title: '3 meals', value: 3 },
@@ -128,8 +130,6 @@ export default {
 			{ title: '8 meals', value: 8 },
 			{ title: '9 meals', value: 9 },
 		],
-		selectedMeal: 1,
-		activePlan: '',
 		value: 0,
 	}),
 	methods: {
@@ -145,6 +145,7 @@ export default {
 	background-color: #ffffff;
 	border-radius: 10px;
 	max-width: 750px;
+	padding: 10px;
 	display: flex;
 	flex-direction: column;
 }
@@ -170,7 +171,5 @@ $desktop-width: 576px;
 	@media (max-width: #{$desktop-width}) {
 		width: 100%;
 	}
-}
-.generateButton {
 }
 </style>

@@ -3,6 +3,13 @@
 		<b-form>
 			<b-form-group
 				label-cols-lg="4"
+				label="Current diet type"
+				label-for="dietType"
+			>
+				<span>{{ dietType }}</span>
+			</b-form-group>
+			<b-form-group
+				label-cols-lg="4"
 				label="I want to"
 				label-for="input-1"
 			>
@@ -63,7 +70,7 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Weight" label-for="input-4">
+			<b-form-group label-cols-lg="4" label="Weight" label-for="input-5">
 				<b-row>
 					<b-col lg="6" sm="12">
 						<b-input-group>
@@ -77,7 +84,7 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Age" label-for="input-4">
+			<b-form-group label-cols-lg="4" label="Age" label-for="input-6">
 				<b-row>
 					<b-col lg="6" sm="12">
 						<b-input-group>
@@ -91,9 +98,9 @@
 					</b-col>
 				</b-row>
 			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Bodyfat" label-for="input-4">
+			<b-form-group label-cols-lg="4" label="Bodyfat" label-for="input-7">
 				<b-form-radio-group
-					id="input-4"
+					id="input-7"
 					v-model="selected4"
 					class="w-100"
 					:options="options4"
@@ -104,17 +111,21 @@
 			<b-form-group
 				label-cols-lg="4"
 				label="Activity level"
-				label-for="input-4"
+				label-for="activityLeve"
 			>
-				<b-form-select v-model="selected5" :options="options5" />
+				<b-form-select
+					id="activityLeve"
+					v-model="activityLevelSelected"
+					:options="activityLevelOptions"
+				/>
 			</b-form-group>
 			<b-form-group
 				label-cols-lg="4"
 				label="Set a weight goal?"
-				label-for="input-4"
+				label-for="input-8"
 			>
 				<b-form-radio-group
-					id="input-4"
+					id="input-8"
 					v-model="selected6"
 					class="w-100"
 					:options="options6"
@@ -123,7 +134,7 @@
 				/>
 			</b-form-group>
 			<div class="w-100 d-flex justify-content-center">
-				<b-button type="submit" variant="success" class="mt-4 w-50">
+				<b-button variant="success" class="mt-4 w-50">
 					<i class="fas fa-calculator" /> Calculate
 				</b-button>
 			</div>
@@ -144,6 +155,12 @@
 </template>
 <script>
 export default {
+	props: {
+		dietType: {
+			type: String,
+			default: 'Anything',
+		},
+	},
 	data: () => ({
 		selected: '',
 		options: [
@@ -167,13 +184,27 @@ export default {
 			{ text: 'Medium', value: 'radio2' },
 			{ text: 'High', value: 'radio3' },
 		],
-		selected5: '',
-		options5: [
-			{ text: 'Sedentary', value: 'radio1' },
-			{ text: 'Lightly Active', value: 'radio2' },
-			{ text: 'Moderately Active', value: 'radio3' },
-			{ text: 'Very Active', value: 'radio3' },
-			{ text: 'Extremely Active', value: 'radio3' },
+		activityLevelSelected: 'sedentary',
+		activityLevelOptions: [
+			{ text: 'Sedentary (little or no exercise)', value: 'sedentary' },
+			{
+				text: 'Lightly Active (light exercise/sports 1-3 days/week)',
+				value: 'lightly',
+			},
+			{
+				text:
+					'Moderately Active (moderate exercise/sports 3-5 days/week)',
+				value: 'moderately',
+			},
+			{
+				text: 'Very Active (hard exercise/sports 6-7 days a week)',
+				value: 'very',
+			},
+			{
+				text:
+					'Extra Active (very hard exercise/sports & physical job or 2x training)',
+				value: 'extra',
+			},
 		],
 		selected6: '',
 		options6: [
