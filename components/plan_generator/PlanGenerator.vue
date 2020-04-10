@@ -132,6 +132,11 @@ export default {
 		],
 		value: 0,
 	}),
+	async created() {
+		const data = await this.$api.get('/posts');
+		console.log(data);
+		debugger;
+	},
 	methods: {
 		generatePlan() {
 			this.$router.push('plan');
