@@ -79,6 +79,8 @@
 import PlanGeneratorModal from './PlanGeneratorModal';
 import PlanGeneratorSelector from './PlanGeneratorSelector';
 
+import { getDataAPI } from '~/services';
+
 export default {
 	components: {
 		PlanGeneratorSelector,
@@ -132,10 +134,12 @@ export default {
 		],
 		value: 0,
 	}),
-	async created() {
-		const data = await this.$api.get('/posts');
-		console.log(data);
-		debugger;
+	created() {
+		getDataAPI(this)
+			.then(({ data }) => {
+				console.log(data);
+			})
+			.catch(console.error);
 	},
 	methods: {
 		generatePlan() {

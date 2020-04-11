@@ -186,23 +186,21 @@ export default {
 		],
 		activityLevelSelected: 'sedentary',
 		activityLevelOptions: [
-			{ text: 'Sedentary (little or no exercise)', value: 'sedentary' },
+			{ text: 'Little or no exercise', value: 'sedentary' },
 			{
-				text: 'Lightly Active (light exercise/sports 1-3 days/week)',
+				text: 'Sports 1-3 days/week',
 				value: 'lightly',
 			},
 			{
-				text:
-					'Moderately Active (moderate exercise/sports 3-5 days/week)',
+				text: 'Sports 3-5 days/week',
 				value: 'moderately',
 			},
 			{
-				text: 'Very Active (hard exercise/sports 6-7 days a week)',
+				text: 'Sports 6-7 days a week',
 				value: 'very',
 			},
 			{
-				text:
-					'Extra Active (very hard exercise/sports & physical job or 2x training)',
+				text: 'Sports & Physical job or 2x training',
 				value: 'extra',
 			},
 		],
