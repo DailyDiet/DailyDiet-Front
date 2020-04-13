@@ -122,18 +122,6 @@
 					</b-button>
 				</div>
 			</b-form>
-			<template #modal-footer>
-				<div class="w-100">
-					<b-button
-						variant="outline-primary"
-						size="sm"
-						class="float-right"
-						@click="$bvModal.hide('question_form_modal')"
-					>
-						Close
-					</b-button>
-				</div>
-			</template>
 			<template #overlay>
 				<div class="text-center">
 					<b-icon
@@ -145,6 +133,18 @@
 				</div>
 			</template>
 		</b-overlay>
+		<template #modal-footer>
+			<div class="w-100">
+				<b-button
+					variant="outline-primary"
+					size="sm"
+					class="float-right"
+					@click="$bvModal.hide('question_form_modal')"
+				>
+					Close
+				</b-button>
+			</div>
+		</template>
 	</b-modal>
 </template>
 <script>
