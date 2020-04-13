@@ -38,7 +38,7 @@
 		>
 			<b-form-spinbutton
 				id="calories"
-				v-model="value"
+				v-model="calorie"
 				min="0"
 				max="100000"
 				step="100"
@@ -71,15 +71,16 @@
 		>
 			Generate
 		</b-button>
-		<PlanGeneratorModal :diet-type="dietTypeSelected" />
+		<PlanGeneratorModal
+			:diet-type="dietTypeSelected"
+			@update="setCalorie"
+		/>
 	</b-container>
 </template>
 
 <script>
 import PlanGeneratorModal from './PlanGeneratorModal';
 import PlanGeneratorSelector from './PlanGeneratorSelector';
-
-import { getDataAPI } from '~/services';
 
 export default {
 	components: {
@@ -132,16 +133,12 @@ export default {
 			{ title: '8 meals', value: 8 },
 			{ title: '9 meals', value: 9 },
 		],
-		value: 0,
+		calorie: 0,
 	}),
-	created() {
-		getDataAPI(this)
-			.then(({ data }) => {
-				console.log(data);
-			})
-			.catch(console.error);
-	},
 	methods: {
+		setCalorie(calorie) {
+			this.calorie = calorie;
+		},
 		generatePlan() {
 			this.$router.push('plan');
 		},

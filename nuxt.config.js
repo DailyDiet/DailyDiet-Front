@@ -71,6 +71,6 @@ export default {
 	},
 
 	env: {
-		apiBaseUrl: 'http://127.0.0.1:5000',
+		apiBaseUrl: 'https://dailydiet-api.herokuapp.com/',
 	},
 };

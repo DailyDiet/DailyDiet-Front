@@ -1,14 +1,10 @@
-export function getDataAPI(that) {
+export function calculateCalorieAPI(that, data) {
 	return that.$api({
+		url: '/calculate/calorie',
+		method: 'POST',
 		headers: {
-			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/json',
 		},
-		method: 'POST',
-		url: '/calculate/bmi',
-		data: JSON.stringify({
-			height: 180,
-			weight: 80,
-		}),
+		data: JSON.stringify(data),
 	});
 }
