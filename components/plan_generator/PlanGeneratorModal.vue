@@ -1,120 +1,150 @@
 <template>
 	<b-modal id="question_form_modal" title="Nutrition calculator" size="lg">
-		<b-form>
-			<b-form-group
-				label-cols-lg="4"
-				label="Current diet type"
-				label-for="dietType"
-			>
-				<span>{{ dietType }}</span>
-			</b-form-group>
-			<b-form-group label-cols-lg="4" label="I want to" label-for="goal">
-				<b-form-radio-group
-					id="goal"
-					v-model="goalSelected"
-					class="w-100"
-					:options="goalOptions"
-					button-variant="outline-primary"
-					buttons
-				/>
-			</b-form-group>
-			<b-form-group label-cols-lg="4" label="I am" label-for="gender">
-				<b-form-radio-group
-					id="gender"
-					v-model="genderSelected"
-					class="w-100"
-					:options="genderOptions"
-					button-variant="outline-primary"
-					buttons
-				/>
-			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Height" label-for="height">
-				<b-row>
-					<b-col cols="6">
-						<b-input-group>
-							<template #append>
-								<b-input-group-text :class="$style.unitLabel">
-									<strong>cm</strong>
-								</b-input-group-text>
-							</template>
-							<b-form-input
-								id="height"
-								v-model="height"
-								:class="$style.pairBtn"
-							/>
-						</b-input-group>
-					</b-col>
-				</b-row>
-			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Weight" label-for="weight">
-				<b-row>
-					<b-col lg="6" sm="12">
-						<b-input-group>
-							<template #append>
-								<b-input-group-text :class="$style.unitLabel">
-									<strong>kg</strong>
-								</b-input-group-text>
-							</template>
-							<b-form-input
-								id="weight"
-								v-model="weight"
-								:class="$style.pairBtn"
-							/>
-						</b-input-group>
-					</b-col>
-				</b-row>
-			</b-form-group>
-			<b-form-group label-cols-lg="4" label="Age" label-for="age">
-				<b-row>
-					<b-col lg="6" sm="12">
-						<b-input-group>
-							<template #append>
-								<b-input-group-text :class="$style.unitLabel">
-									<strong>years</strong>
-								</b-input-group-text>
-							</template>
-							<b-form-input
-								id="age"
-								v-model="age"
-								:class="$style.pairBtn"
-							/>
-						</b-input-group>
-					</b-col>
-				</b-row>
-			</b-form-group>
-			<b-form-group
-				label-cols-lg="4"
-				label="Activity level"
-				label-for="activityLeve"
-			>
-				<b-form-select
-					id="activityLeve"
-					v-model="activitySelected"
-					:options="activityOptions"
-				/>
-			</b-form-group>
-			<div class="w-100 d-flex justify-content-center">
-				<b-button
-					variant="success"
-					class="mt-4 w-50"
-					@click="calculateCalorie"
+		<b-overlay :show="show" rounded="lg">
+			<b-form>
+				<b-form-group
+					label-cols-lg="4"
+					label="Current diet type"
+					label-for="dietType"
 				>
-					<i class="fas fa-calculator" /> Calculate
-				</b-button>
-			</div>
-		</b-form>
-		<template #modal-footer>
-			<div class="w-100">
-				<b-button
-					variant="outline-primary"
-					size="sm"
-					class="float-right"
-					@click="$bvModal.hide('question_form_modal')"
+					<span>{{ dietType }}</span>
+				</b-form-group>
+				<b-form-group
+					label-cols-lg="4"
+					label="I want to"
+					label-for="goal"
 				>
-					Close
-				</b-button>
-			</div>
-		</template>
+					<b-form-radio-group
+						id="goal"
+						v-model="goalSelected"
+						class="w-100"
+						:options="goalOptions"
+						button-variant="outline-primary"
+						buttons
+					/>
+				</b-form-group>
+				<b-form-group label-cols-lg="4" label="I am" label-for="gender">
+					<b-form-radio-group
+						id="gender"
+						v-model="genderSelected"
+						class="w-100"
+						:options="genderOptions"
+						button-variant="outline-primary"
+						buttons
+					/>
+				</b-form-group>
+				<b-form-group
+					label-cols-lg="4"
+					label="Height"
+					label-for="height"
+				>
+					<b-row>
+						<b-col cols="6">
+							<b-input-group>
+								<template #append>
+									<b-input-group-text
+										:class="$style.unitLabel"
+									>
+										<strong>cm</strong>
+									</b-input-group-text>
+								</template>
+								<b-form-input
+									id="height"
+									v-model="height"
+									:class="$style.pairBtn"
+								/>
+							</b-input-group>
+						</b-col>
+					</b-row>
+				</b-form-group>
+				<b-form-group
+					label-cols-lg="4"
+					label="Weight"
+					label-for="weight"
+				>
+					<b-row>
+						<b-col lg="6" sm="12">
+							<b-input-group>
+								<template #append>
+									<b-input-group-text
+										:class="$style.unitLabel"
+									>
+										<strong>kg</strong>
+									</b-input-group-text>
+								</template>
+								<b-form-input
+									id="weight"
+									v-model="weight"
+									:class="$style.pairBtn"
+								/>
+							</b-input-group>
+						</b-col>
+					</b-row>
+				</b-form-group>
+				<b-form-group label-cols-lg="4" label="Age" label-for="age">
+					<b-row>
+						<b-col lg="6" sm="12">
+							<b-input-group>
+								<template #append>
+									<b-input-group-text
+										:class="$style.unitLabel"
+									>
+										<strong>years</strong>
+									</b-input-group-text>
+								</template>
+								<b-form-input
+									id="age"
+									v-model="age"
+									:class="$style.pairBtn"
+								/>
+							</b-input-group>
+						</b-col>
+					</b-row>
+				</b-form-group>
+				<b-form-group
+					label-cols-lg="4"
+					label="Activity level"
+					label-for="activityLeve"
+				>
+					<b-form-select
+						id="activityLeve"
+						v-model="activitySelected"
+						:options="activityOptions"
+					/>
+				</b-form-group>
+				<div class="w-100 d-flex justify-content-center">
+					<b-button
+						variant="success"
+						class="mt-4 w-50"
+						@click="calculateCalorie"
+					>
+						<i class="fas fa-calculator" /> Calculate
+					</b-button>
+				</div>
+			</b-form>
+			<template #modal-footer>
+				<div class="w-100">
+					<b-button
+						variant="outline-primary"
+						size="sm"
+						class="float-right"
+						@click="$bvModal.hide('question_form_modal')"
+					>
+						Close
+					</b-button>
+				</div>
+			</template>
+			<template #overlay>
+				<div class="text-center">
+					<b-icon
+						icon="stopwatch"
+						font-scale="3"
+						animation="cylon"
+					></b-icon>
+					<p id="cancel-label">Please wait...</p>
+				</div>
+			</template>
+		</b-overlay>
 	</b-modal>
 </template>
 <script>
@@ -127,6 +157,8 @@ export default {
 		},
 	},
 	data: () => ({
+		show: false,
+
 		goalSelected: 'lose_weight',
 		goalOptions: [
 			{ text: 'Lose weight', value: 'lose_weight' },
@@ -164,6 +196,7 @@ export default {
 	}),
 	methods: {
 		calculateCalorie() {
+			this.show = true;
 			const payload = {
 				goal: this.goalSelected,
 				gender: this.genderSelected,
@@ -175,6 +208,7 @@ export default {
 			calculateCalorieAPI(this, payload)
 				.then(({ data }) => {
 					this.$emit('update', data.calorie);
+					this.show = false;
 					this.$bvModal.hide('question_form_modal');
 				})
 				.catch(console.error);

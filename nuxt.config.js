@@ -73,4 +73,8 @@ export default {
 	env: {
 		apiBaseUrl: 'https://dailydiet-api.herokuapp.com/',
 	},
+
+	bootstrapVue: {
+		icons: true, // Install the IconsPlugin (in addition to BootStrapVue plugin
+	},
 };
