@@ -208,10 +208,19 @@ export default {
 			calculateCalorieAPI(this, payload)
 				.then(({ data }) => {
 					this.$emit('update', data.calorie);
-					this.show = false;
 					this.$bvModal.hide('question_form_modal');
 				})
-				.catch(console.error);
+				.catch(err => {
+					console.error(err);
+					this.$bvToast.toast(err, {
+						title: 'Error',
+						variant: 'danger',
+						solid: true,
+					});
+				})
+				.finally(() => {
+					this.show = false;
+				});
 		},
 	},
 };
