@@ -3,9 +3,9 @@
 		<div :class="$style.headerImage">
 			<PlanGenerator />
 		</div>
-		<div style="height: 100vh; background-color: #ff4500;" />
+		<!-- <div style="height: 100vh; background-color: #ff4500;" />
 		<div style="height: 100vh; background-color: #99ff21;" />
-		<div style="height: 100vh; background-color: #fffb93;" />
+		<div style="height: 100vh; background-color: #fffb93;" /> -->
 	</div>
 </template>
 

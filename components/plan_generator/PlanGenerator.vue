@@ -35,6 +35,7 @@
 			label-cols-lg="3"
 			label="I want to eat"
 			label-for="calories"
+			:description="bmi"
 		>
 			<b-form-spinbutton
 				id="calories"
@@ -134,10 +135,12 @@ export default {
 			{ title: '9 meals', value: 9 },
 		],
 		calorie: 0,
+		bmi: '',
 	}),
 	methods: {
-		setCalorie(calorie) {
-			this.calorie = calorie;
+		setCalorie(data) {
+			this.calorie = data.calorie.calorie;
+			this.bmi = `Your BMI status is " ${data.bmi.bmi_status} " and it's ${data.bmi.bmi_value}`;
 		},
 		generatePlan() {
 			this.$router.push('plan');

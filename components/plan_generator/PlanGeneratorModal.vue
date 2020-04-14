@@ -1,7 +1,7 @@
 <template>
 	<b-modal id="question_form_modal" title="Nutrition calculator" size="lg">
 		<b-overlay :show="show" rounded="lg">
-			<b-form>
+			<b-form @submit.prevent="calculateBmi">
 				<b-form-group
 					label-cols-lg="4"
 					label="Current diet type"
@@ -39,7 +39,7 @@
 					label-for="height"
 				>
 					<b-row>
-						<b-col cols="6">
+						<b-col lg="6" sm="12">
 							<b-input-group>
 								<template #append>
 									<b-input-group-text
@@ -52,6 +52,7 @@
 									id="height"
 									v-model="height"
 									:class="$style.pairBtn"
+									required
 								/>
 							</b-input-group>
 						</b-col>
@@ -76,6 +77,7 @@
 									id="weight"
 									v-model="weight"
 									:class="$style.pairBtn"
+									required
 								/>
 							</b-input-group>
 						</b-col>
@@ -96,6 +98,7 @@
 									id="age"
 									v-model="age"
 									:class="$style.pairBtn"
+									required
 								/>
 							</b-input-group>
 						</b-col>
@@ -113,11 +116,7 @@
 					/>
 				</b-form-group>
 				<div class="w-100 d-flex justify-content-center">
-					<b-button
-						variant="success"
-						class="mt-4 w-50"
-						@click="calculateCalorie"
-					>
+					<b-button variant="success" class="mt-4 w-50" type="submit">
 						<i class="fas fa-calculator" /> Calculate
 					</b-button>
 				</div>
@@ -148,7 +147,7 @@
 	</b-modal>
 </template>
 <script>
-import { calculateCalorieAPI } from '~/services';
+import { calculateCalorieAPI, calculateBmiAPI } from '~/services';
 export default {
 	props: {
 		dietType: {
@@ -158,6 +157,7 @@ export default {
 	},
 	data: () => ({
 		show: false,
+		dataEmited: {},
 
 		goalSelected: 'lose_weight',
 		goalOptions: [
@@ -196,7 +196,6 @@ export default {
 	}),
 	methods: {
 		calculateCalorie() {
-			this.show = true;
 			const payload = {
 				goal: this.goalSelected,
 				gender: this.genderSelected,
@@ -207,7 +206,8 @@ export default {
 			};
 			calculateCalorieAPI(this, payload)
 				.then(({ data }) => {
-					this.$emit('update', data.calorie);
+					this.dataEmited.calorie = data;
+					this.$emit('update', this.dataEmited);
 					this.$bvModal.hide('question_form_modal');
 				})
 				.catch(err => {
@@ -220,6 +220,26 @@ export default {
 				})
 				.finally(() => {
 					this.show = false;
+				});
+		},
+		calculateBmi() {
+			this.show = true;
+			const payload = {
+				height: this.height,
+				weight: this.weight,
+			};
+			calculateBmiAPI(this, payload)
+				.then(({ data }) => {
+					this.dataEmited.bmi = data;
+					this.calculateCalorie();
+				})
+				.catch(err => {
+					console.error(err);
+					this.$bvToast.toast(err, {
+						title: 'Error',
+						variant: 'danger',
+						solid: true,
+					});
 				});
 		},
 	},

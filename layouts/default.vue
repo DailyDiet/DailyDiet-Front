@@ -1,26 +1,27 @@
 <template>
 	<div>
-		<b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
-			<b-navbar-brand href="#">
-				<img src="../assets/images/logo.png" width="30" height="30" />
+		<b-navbar toggleable="lg" type="light" variant="dark" fixed="top">
+			<b-navbar-brand href="/">
+				<img src="../assets/images/logo.jpg" width="30" height="30" />
 			</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse" />
 
 			<b-collapse id="nav-collapse" is-nav>
-				<b-navbar-nav>
+				<!-- <b-navbar-nav>
 					<b-nav-item href="#">
-						Link
+						Home
 					</b-nav-item>
 					<b-nav-item href="#" disabled>
 						Disabled
 					</b-nav-item>
-				</b-navbar-nav>
+				</b-navbar-nav> -->
 
 				<b-navbar-nav class="ml-auto">
 					<b-button
 						size="sm"
 						class="my-2 my-sm-0"
+						disabled
 						@click="$router.push('login')"
 					>
 						Login
