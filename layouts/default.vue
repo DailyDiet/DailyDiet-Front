@@ -18,7 +18,11 @@
 				</b-navbar-nav>
 
 				<b-navbar-nav class="ml-auto">
-					<b-button size="sm" class="my-2 my-sm-0" type="submit">
+					<b-button
+						size="sm"
+						class="my-2 my-sm-0"
+						@click="$router.push('login')"
+					>
 						Login
 					</b-button>
 				</b-navbar-nav>
