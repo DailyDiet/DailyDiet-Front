@@ -68,7 +68,6 @@
 			variant="success"
 			:class="{ ['my-3']: true, [$style.selectMeal]: true }"
 			style="margin: 0px auto;"
-			disabled
 			@click="generatePlan"
 		>
 			Generate
