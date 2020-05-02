@@ -28,7 +28,7 @@
 						>
 							<b-form-input
 								id="input-2"
-								v-model="form.name"
+								v-model="form.password"
 								required
 								placeholder="Enter password"
 							></b-form-input>
@@ -50,27 +50,46 @@ export default {
 	data: () => ({
 		form: {
 			email: '',
-			name: '',
-			food: null,
-			checked: [],
+			password: '',
 		},
 		show: true,
 	}),
 	methods: {
 		onSubmit(evt) {
 			evt.preventDefault();
-			alert(JSON.stringify(this.form));
+			this.$api
+				.post('/token', {
+					email: this.form.email,
+					password: this.form.password,
+				})
+				.then(resp => {
+					this.$auth.setToken(
+						'local',
+						'Bearer ' + resp.data.access_token
+					);
+					this.$auth.setRefreshToken(
+						'local',
+						resp.data.refresh_token
+					);
+					this.$api.setHeader(
+						'Authorization',
+						'Bearer ' + resp.data.access_token
+					);
+					this.$auth.ctx.app.$api.setHeader(
+						'Authorization',
+						'Bearer ' + resp.data.access_token
+					);
+					this.$api.get('/users/me').then(resp => {
+						this.$auth.setUser(resp.data);
+						this.$router.push('/');
+					});
+				});
 		},
 	},
 };
 </script>
 
 <style module lang="scss">
-.form {
-	// background-color: aliceblue;
-	// padding: 10px;
-	// border-radius: 10px;
-}
 .headerImage {
 	height: 100vh;
 	background-image: url('../assets/images/bgblur.png');

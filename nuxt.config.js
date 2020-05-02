@@ -49,6 +49,7 @@ export default {
 		// Doc: https://bootstrap-vue.js.org
 		'bootstrap-vue/nuxt',
 		'@nuxtjs/axios',
+		'@nuxtjs/auth',
 	],
 	/*
 	 ** Build configuration
@@ -67,6 +68,27 @@ export default {
 					exclude: /(node_modules)/,
 				});
 			}
+		},
+	},
+
+	auth: {
+		strategies: {
+			local: {
+				endpoints: {
+					login: {
+						url: '/api/auth/login',
+						method: 'post',
+						propertyName: 'token',
+					},
+					logout: { url: '/api/auth/logout', method: 'post' },
+					user: {
+						url: '/api/auth/user',
+						method: 'get',
+						propertyName: 'user',
+					},
+				},
+			},
+			tokenType: '',
 		},
 	},
 

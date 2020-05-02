@@ -16,7 +16,7 @@
 						<div :class="$style.items">
 							<img
 								:src="
-									require(`../../assets/images/filter-diet/${dietType.imageUrl}.png`)
+									require(`~/assets/images/filter-diet/${dietType.imageUrl}.png`)
 								"
 								:class="$style.image"
 								:alt="dietType.title"
@@ -65,10 +65,10 @@
 			/>
 		</b-form-group>
 		<b-button
+			v-b-modal.recipe
 			variant="success"
 			:class="{ ['my-3']: true, [$style.selectMeal]: true }"
 			style="margin: 0px auto;"
-			@click="generatePlan"
 		>
 			Generate
 		</b-button>
@@ -76,17 +76,20 @@
 			:diet-type="dietTypeSelected"
 			@update="setCalorie"
 		/>
+		<RecipeModal />
 	</b-container>
 </template>
 
 <script>
 import PlanGeneratorModal from './PlanGeneratorModal';
 import PlanGeneratorSelector from './PlanGeneratorSelector';
+import RecipeModal from '~/components/recipe/Recipe.vue';
 
 export default {
 	components: {
 		PlanGeneratorSelector,
 		PlanGeneratorModal,
+		RecipeModal,
 	},
 	data: () => ({
 		dietTypeSelected: 'Anything',
@@ -143,7 +146,7 @@ export default {
 			this.bmi = `Your BMI status is " ${data.bmi.bmi_status} " and it's ${data.bmi.bmi_value}`;
 		},
 		generatePlan() {
-			this.$router.push('plan');
+			// this.$router.push('plan');
 		},
 	},
 };
