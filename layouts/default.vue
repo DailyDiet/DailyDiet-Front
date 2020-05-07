@@ -1,8 +1,19 @@
 <template>
 	<div>
-		<b-navbar toggleable="lg" type="light" variant="dark" fixed="top">
+		<b-navbar
+			toggleable="lg"
+			type="light"
+			variant="dark"
+			fixed="top"
+			sticky
+		>
 			<b-navbar-brand href="/">
-				<img src="../assets/images/logo.jpg" width="30" height="30" />
+				<b-img
+					rounded
+					src="../assets/images/logo.jpg"
+					width="30"
+					height="30"
+				/>
 			</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse" />
@@ -12,6 +23,7 @@
 					<b-button
 						size="sm"
 						class="my-2 my-sm-0"
+						disabled
 						@click="$router.push('login')"
 					>
 						Login
