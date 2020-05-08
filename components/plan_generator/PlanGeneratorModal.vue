@@ -13,6 +13,7 @@
 					label-cols-lg="4"
 					label="I want to"
 					label-for="goal"
+					style="white-space: nowrap;"
 				>
 					<b-form-radio-group
 						id="goal"
@@ -159,7 +160,7 @@ export default {
 		show: false,
 		dataEmited: {},
 
-		goalSelected: 'lose_weight',
+		goalSelected: 'maintain',
 		goalOptions: [
 			{ text: 'Lose weight', value: 'lose_weight' },
 			{ text: 'Maintain', value: 'maintain' },

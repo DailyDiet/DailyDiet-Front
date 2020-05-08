@@ -1,21 +1,27 @@
 <template>
 	<div>
-		<b-card no-body>
+		<b-card
+			:class="[$style.mealCard, 'mt-5']"
+			style="width: 320px;"
+			@click="$emit('update')"
+		>
 			<template #header>
-				<div class="d-flex align-items-center">
-					<span class="mr-auto">{{ meal.title }}</span>
-					{{ meal.calories }} Calories
+				<div class="d-flex align-items-center justify-content-between">
+					<div>
+						<div>{{ meal.title }}</div>
+						<div :class="$style.extra">
+							{{ meal.calories }} Calories
+						</div>
+					</div>
+					<div>
+						<b-icon-info-circle />
+					</div>
 				</div>
 			</template>
-			<b-card-body style="min-width: 600px;">
-				<b-list-group>
-					<b-list-group-item class="d-flex align-items-center">
-						<b-avatar class="mr-3"></b-avatar>
-						<span class="mr-auto">J. Circlehead</span>
-						<b-badge>5</b-badge>
-					</b-list-group-item>
-				</b-list-group>
-			</b-card-body>
+			<b-img fluid :src="meal.image" rounded />
+			<b-card-text :class="[$style.extra, 'text-center']">
+				{{ meal.name }}
+			</b-card-text>
 		</b-card>
 	</div>
 </template>
@@ -28,8 +34,22 @@ export default {
 			required: true,
 		},
 	},
-	data: () => ({}),
 };
 </script>
 
-<style module lang="scss"></style>
+<style module lang="scss">
+.extra {
+	text-overflow: ellipsis;
+	font-size: 12px;
+	color: #9c9c9c;
+	line-height: 12px;
+	font-weight: normal;
+	padding-top: 5px;
+}
+.mealCard {
+	&:hover {
+		cursor: pointer;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+	}
+}
+</style>

@@ -50,25 +50,10 @@
 				<i class="fas fa-calculator" /> Not sure?
 			</b-link>
 		</b-form-group>
-		<b-form-group
-			label-cols-sm="3"
-			label-cols-lg="3"
-			label="in"
-			label-for="meal"
-		>
-			<b-form-select
-				id="meal"
-				v-model="mealSelected"
-				:class="{ [$style.selectMeal]: true }"
-				text-field="title"
-				:options="mealOptions"
-			/>
-		</b-form-group>
 		<b-button
-			v-b-modal.recipe
 			variant="success"
-			:class="{ ['my-3']: true, [$style.selectMeal]: true }"
-			style="margin: 0px auto;"
+			:class="['my-3', $style.selectMeal]"
+			@click="generatePlan"
 		>
 			Generate
 		</b-button>
@@ -76,20 +61,23 @@
 			:diet-type="dietTypeSelected"
 			@update="setCalorie"
 		/>
-		<RecipeModal />
 	</b-container>
 </template>
 
 <script>
 import PlanGeneratorModal from './PlanGeneratorModal';
 import PlanGeneratorSelector from './PlanGeneratorSelector';
-import RecipeModal from '~/components/recipe/Recipe.vue';
 
 export default {
 	components: {
 		PlanGeneratorSelector,
 		PlanGeneratorModal,
-		RecipeModal,
+	},
+	props: {
+		plan: {
+			type: Object,
+			default: null,
+		},
 	},
 	data: () => ({
 		dietTypeSelected: 'Anything',
@@ -125,28 +113,26 @@ export default {
 				imageUrl: 'icon-olive',
 			},
 		],
-		mealSelected: 1,
-		mealOptions: [
-			{ title: '1 meal', value: 1 },
-			{ title: '2 meals', value: 2 },
-			{ title: '3 meals', value: 3 },
-			{ title: '4 meals', value: 4 },
-			{ title: '5 meals', value: 5 },
-			{ title: '6 meals', value: 6 },
-			{ title: '7 meals', value: 7 },
-			{ title: '8 meals', value: 8 },
-			{ title: '9 meals', value: 9 },
-		],
 		calorie: 0,
 		bmi: '',
 	}),
+	mounted() {
+		if (this.plan && this.plan.dietType) {
+			this.dietTypeSelected = this.plan.dietType;
+			this.calorie = this.plan.dietCalories;
+		}
+	},
 	methods: {
 		setCalorie(data) {
 			this.calorie = data.calorie.calorie;
 			this.bmi = `Your BMI status is " ${data.bmi.bmi_status} " and it's ${data.bmi.bmi_value}`;
 		},
 		generatePlan() {
-			// this.$router.push('plan');
+			const payload = {
+				dietType: this.dietTypeSelected,
+				calories: this.calorie,
+			};
+			this.$emit('update', payload);
 		},
 	},
 };
@@ -179,6 +165,7 @@ export default {
 }
 $desktop-width: 576px;
 .selectMeal {
+	margin: 0px auto;
 	width: 50%;
 	@media (max-width: #{$desktop-width}) {
 		width: 100%;

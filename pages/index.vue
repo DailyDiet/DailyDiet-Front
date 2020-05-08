@@ -1,11 +1,8 @@
 <template>
 	<div>
 		<div :class="$style.headerImage">
-			<PlanGenerator />
+			<PlanGenerator @update="generatePlan" />
 		</div>
-		<!-- <div style="height: 100vh; background-color: #ff4500;" />
-		<div style="height: 100vh; background-color: #99ff21;" />
-		<div style="height: 100vh; background-color: #fffb93;" /> -->
 	</div>
 </template>
 
@@ -15,6 +12,17 @@ import PlanGenerator from '~/components/plan_generator/PlanGenerator.vue';
 export default {
 	components: { PlanGenerator },
 	data: () => ({}),
+	methods: {
+		generatePlan(params) {
+			this.$router.push({
+				name: 'plan',
+				params: {
+					dietType: params.dietType,
+					dietCalories: params.calories,
+				},
+			});
+		},
+	},
 };
 </script>
 
@@ -26,5 +34,6 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
 </style>
