@@ -34,14 +34,13 @@
 							Search
 						</b-button>
 					</b-nav-form>
-					<!-- <b-button
+					<b-button
 						size="sm"
-						class="my-2 my-sm-0"
-						disabled
+						class="my-2 mx-2 my-sm-0"
 						@click="$router.push('login')"
 					>
 						Login
-					</b-button> -->
+					</b-button>
 				</b-navbar-nav>
 			</b-collapse>
 		</b-navbar>
