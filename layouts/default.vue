@@ -34,30 +34,32 @@
 							Search
 						</b-button>
 					</b-nav-form>
-					<b-button
-						v-if="hasLogin"
-						size="sm"
-						class="my-2 my-sm-1 mr-2"
-						@click="$router.push('dashboard')"
-					>
-						dashboard
-					</b-button>
-					<b-button
-						v-if="!hasLogin"
-						size="sm"
-						class="my-2 my-sm-1"
-						@click="$router.push('login')"
-					>
-						Sign in
-					</b-button>
-					<b-button
-						v-else
-						size="sm"
-						class="my-2 my-sm-1"
-						@click="signOut"
-					>
-						Sign out
-					</b-button>
+					<div v-if="$auth.loggedIn">
+						{{ $auth.user.email }}
+						<b-button
+							size="sm"
+							class="my-2 my-sm-1 mr-2"
+							@click="$router.push('dashboard')"
+						>
+							dashboard
+						</b-button>
+						<b-button
+							size="sm"
+							class="my-2 my-sm-1"
+							@click="signOut"
+						>
+							Sign out
+						</b-button>
+					</div>
+					<div v-else>
+						<b-button
+							size="sm"
+							class="my-2 my-sm-1"
+							@click="$router.push('login')"
+						>
+							Sign in
+						</b-button>
+					</div>
 				</b-navbar-nav>
 			</b-collapse>
 		</b-navbar>

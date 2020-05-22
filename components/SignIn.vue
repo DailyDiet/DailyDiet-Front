@@ -1,5 +1,5 @@
 <template>
-	<b-form :class="$style.form" @submit="onSubmit">
+	<b-form :class="$style.form" @submit.prevent="userLogin">
 		<b-card>
 			<div :class="$style.headerCardRegister">
 				<i class="fas fa-sign-in-alt"></i>
@@ -79,6 +79,19 @@ export default {
 				.catch(err => {
 					console.error(err);
 					this.$toastErrors(err);
+				});
+		},
+		userLogin() {
+			this.$auth
+				.login('local', {
+					data: this.form,
+				})
+				.then(res => {
+					console.log(res);
+					this.$router.push('dashboard');
+				})
+				.catch(err => {
+					console.error(err);
 				});
 		},
 	},
