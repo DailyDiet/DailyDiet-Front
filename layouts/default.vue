@@ -28,7 +28,7 @@
 						/>
 						<b-button
 							size="sm"
-							class="my-2 my-sm-0 mr-2"
+							class="my-2 my-sm-1 mr-2"
 							@click="$router.push('search')"
 						>
 							Search
@@ -36,7 +36,7 @@
 					</b-nav-form>
 					<b-button
 						size="sm"
-						class="my-2 my-sm-0"
+						class="my-2 my-sm-1"
 						@click="$router.push('login')"
 					>
 						Sign in

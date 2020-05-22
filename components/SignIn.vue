@@ -46,7 +46,7 @@
 				block
 				variant="outline-primary"
 				pill
-				@click="$emit('changeState')"
+				@click="$emit('changeState', 'signup')"
 			>
 				Sign up
 			</b-button>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import Cookie from 'js-cookie';
 import { signInAPI } from '~/services';
 
 export default {
@@ -70,10 +71,15 @@ export default {
 		onSubmit(evt) {
 			evt.preventDefault();
 			signInAPI(this, this.form)
-				.then(res => {
-					console.log(res);
+				.then(({ data }) => {
+					this.$store.commit('setAuth', data);
+					Cookie.set('auth', data);
+					this.$router.push('dashboard');
 				})
-				.catch(console.error);
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				});
 		},
 	},
 };

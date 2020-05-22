@@ -73,7 +73,7 @@
 				block
 				variant="outline-primary"
 				pill
-				@click="$emit('changeState')"
+				@click="$emit('changeState', 'signin')"
 			>
 				Sign in
 			</b-button>
@@ -85,8 +85,6 @@
 import { signUpAPI } from '~/services';
 
 export default {
-	name: 'SignUp',
-	components: {},
 	data: () => ({
 		form: {
 			full_name: '',
@@ -100,9 +98,12 @@ export default {
 			evt.preventDefault();
 			signUpAPI(this, this.form)
 				.then(res => {
-					console.log(res);
+					this.$emit('changeState', 'success');
 				})
-				.catch(console.error);
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				});
 		},
 	},
 };
