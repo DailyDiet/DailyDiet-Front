@@ -80,7 +80,7 @@ export default {
 			local: {
 				endpoints: {
 					login: {
-						url: '/api/auth/login',
+						url: '/users/signin',
 						method: 'post',
 						propertyName: 'token',
 					},
