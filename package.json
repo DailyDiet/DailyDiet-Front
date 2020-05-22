@@ -15,6 +15,7 @@
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5.12.1",
+		"@nuxtjs/auth": "^4.9.1",
 		"@nuxtjs/axios": "^5.10.1",
 		"bootstrap": "^4.4.1",
 		"bootstrap-vue": "^2.12.0",
