@@ -37,7 +37,11 @@ export default {
 	/*
 	 ** Plugins to load before mounting the App
 	 */
-	plugins: ['~/plugins/axios', '~/plugins/smooth-scroll'],
+	plugins: [
+		'~/plugins/axios',
+		'~/plugins/smooth-scroll',
+		'~/plugins/mixins/toast',
+	],
 	/*
 	 ** Nuxt.js dev-modules
 	 */
