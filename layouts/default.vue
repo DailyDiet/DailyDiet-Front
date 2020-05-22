@@ -25,10 +25,10 @@
 							size="sm"
 							class="mr-sm-2"
 							placeholder="Search"
-						></b-form-input>
+						/>
 						<b-button
 							size="sm"
-							class="my-2 my-sm-0"
+							class="my-2 my-sm-0 mr-2"
 							@click="$router.push('search')"
 						>
 							Search
@@ -36,10 +36,10 @@
 					</b-nav-form>
 					<b-button
 						size="sm"
-						class="my-2 mx-2 my-sm-0"
+						class="my-2 my-sm-0"
 						@click="$router.push('login')"
 					>
-						Login
+						Sign in
 					</b-button>
 				</b-navbar-nav>
 			</b-collapse>
