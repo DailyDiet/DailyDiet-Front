@@ -35,11 +35,28 @@
 						</b-button>
 					</b-nav-form>
 					<b-button
+						v-if="hasLogin"
+						size="sm"
+						class="my-2 my-sm-1 mr-2"
+						@click="$router.push('dashboard')"
+					>
+						dashboard
+					</b-button>
+					<b-button
+						v-if="!hasLogin"
 						size="sm"
 						class="my-2 my-sm-1"
 						@click="$router.push('login')"
 					>
 						Sign in
+					</b-button>
+					<b-button
+						v-else
+						size="sm"
+						class="my-2 my-sm-1"
+						@click="signOut"
+					>
+						Sign out
 					</b-button>
 				</b-navbar-nav>
 			</b-collapse>
@@ -47,3 +64,28 @@
 		<nuxt />
 	</div>
 </template>
+<script>
+import Cookie from 'js-cookie';
+
+export default {
+	data: () => ({
+		hasLogin: false,
+	}),
+	mounted() {
+		this.checkLogin();
+	},
+	methods: {
+		checkLogin() {
+			if (Cookie.getJSON('auth')) {
+				this.hasLogin = true;
+			}
+		},
+		signOut() {
+			Cookie.remove('auth');
+			this.$router.replace({ path: '/' });
+			this.hasLogin = false;
+			window.location.reload(true);
+		},
+	},
+};
+</script>

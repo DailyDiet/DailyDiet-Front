@@ -1,5 +1,8 @@
 <template>
-	<div>
-		<p>{{ $store.state }}</p>
-	</div>
+	<div></div>
 </template>
+<script>
+export default {
+	middleware: 'authenticated',
+};
+</script>

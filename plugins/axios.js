@@ -1,16 +1,33 @@
-export default function ({ $axios, redirect }, inject) {
-	// Create a custom axios instance
+import Cookie from 'js-cookie';
+
+export default function ({ $axios }, inject) {
+	const headers = {
+		Accept: 'text/plain, */*',
+	};
+	const tokens = Cookie.getJSON('auth');
+	if (tokens) {
+		headers.Authorization = `Bearer ${tokens.access_token}`;
+	}
+
 	const api = $axios.create({
-		headers: {
-			common: {
-				Accept: 'text/plain, */*',
-			},
-		},
+		headers,
 	});
 
-	// Set baseURL to something different
 	api.setBaseURL(process.env.apiBaseUrl);
 
-	// Inject to context as $api
 	inject('api', api);
+
+	if (tokens) {
+		setInterval(() => {
+			api({
+				url: '/users/auth',
+				method: 'PUT',
+				headers: {
+					Authorization: `Bearer ${tokens.refresh_token}`,
+				},
+			}).then(res => {
+				console.log(res);
+			});
+		}, 1000 * 60 * 15);
+	}
 }
