@@ -1,32 +1,52 @@
 <template>
 	<div>
-		<div :class="$style.headerImage">
-			<SignUp v-if="signUp" @changeState="changeState" />
-			<SignIn v-else @changeState="changeState" />
-		</div>
+		<b-overlay :show="registerState === 'success'" rounded="sm">
+			<div :class="$style.headerImage">
+				<SignUp
+					v-if="registerState === 'signup'"
+					@changeState="changeState"
+				/>
+				<SignIn
+					v-if="registerState === 'signin'"
+					@changeState="changeState"
+				/>
+			</div>
+			<template #overlay>
+				<div class="text-center">
+					<b-icon
+						icon="envelope-open"
+						font-scale="3"
+						animation="cylon"
+					/>
+					<p id="cancel-label">
+						Please check your inbox for the verification email
+					</p>
+					<b-button
+						ref="cancel"
+						variant="outline-success"
+						size="sm"
+						aria-describedby="cancel-label"
+						@click="changeState('signin')"
+					>
+						Sign in
+					</b-button>
+				</div>
+			</template>
+		</b-overlay>
 	</div>
 </template>
 
 <script>
-import { signUpAPI } from '~/services';
 import SignUp from '~/components/SignUp.vue';
 import SignIn from '~/components/SignIn.vue';
 export default {
 	components: { SignUp, SignIn },
 	data: () => ({
-		signUp: false,
+		registerState: 'signin',
 	}),
 	methods: {
-		changeState() {
-			this.signUp = !this.signUp;
-		},
-		onSubmit(evt) {
-			evt.preventDefault();
-			signUpAPI(this, this.form)
-				.then(res => {
-					console.log(res);
-				})
-				.catch(console.error);
+		changeState(newState) {
+			this.registerState = newState;
 		},
 	},
 };
