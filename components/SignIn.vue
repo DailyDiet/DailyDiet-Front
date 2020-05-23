@@ -35,11 +35,23 @@
 					placeholder="Enter password"
 				/>
 			</b-input-group>
-
-			<b-button type="submit" class="mt-4" block variant="primary" pill>
-				Sign in
-			</b-button>
-
+			<b-overlay
+				:show="busy"
+				rounded
+				opacity="0.6"
+				spinner-small
+				spinner-variant="primary"
+			>
+				<b-button
+					type="submit"
+					class="mt-4"
+					block
+					variant="primary"
+					pill
+				>
+					Sign in
+				</b-button>
+			</b-overlay>
 			<hr />
 			<b-button
 				class="mt-4"
@@ -55,9 +67,6 @@
 </template>
 
 <script>
-import Cookie from 'js-cookie';
-import { signInAPI } from '~/services';
-
 export default {
 	name: 'SignUp',
 	components: {},
@@ -66,32 +75,32 @@ export default {
 			email: '',
 			password: '',
 		},
+		busy: false,
 	}),
 	methods: {
-		onSubmit(evt) {
-			evt.preventDefault();
-			signInAPI(this, this.form)
+		userLogin() {
+			this.busy = true;
+			this.$auth
+				.loginWith('local', {
+					data: this.form,
+				})
 				.then(({ data }) => {
-					this.$store.commit('setAuth', data);
-					Cookie.set('auth', data);
-					this.$router.push('dashboard');
+					this.$auth.$storage.setUniversal(
+						'accessToken',
+						data.access_token
+					);
+					this.$auth.$storage.setUniversal(
+						'refreshToken',
+						data.refresh_token
+					);
+					this.$api.setToken(data.access_token, 'Bearer');
 				})
 				.catch(err => {
 					console.error(err);
 					this.$toastErrors(err);
-				});
-		},
-		userLogin() {
-			this.$auth
-				.login('local', {
-					data: this.form,
 				})
-				.then(res => {
-					console.log(res);
-					this.$router.push('dashboard');
-				})
-				.catch(err => {
-					console.error(err);
+				.finally(() => {
+					this.busy = false;
 				});
 		},
 	},

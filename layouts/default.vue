@@ -35,7 +35,6 @@
 						</b-button>
 					</b-nav-form>
 					<div v-if="$auth.loggedIn">
-						{{ $auth.user.email }}
 						<b-button
 							size="sm"
 							class="my-2 my-sm-1 mr-2"
@@ -46,7 +45,7 @@
 						<b-button
 							size="sm"
 							class="my-2 my-sm-1"
-							@click="signOut"
+							@click="$auth.logout()"
 						>
 							Sign out
 						</b-button>
@@ -67,27 +66,32 @@
 	</div>
 </template>
 <script>
-import Cookie from 'js-cookie';
-
+import jwtDecode from 'jwt-decode';
 export default {
-	data: () => ({
-		hasLogin: false,
-	}),
-	mounted() {
-		this.checkLogin();
-	},
-	methods: {
-		checkLogin() {
-			if (Cookie.getJSON('auth')) {
-				this.hasLogin = true;
+	async mounted() {
+		const token = this.$auth.$storage.getCookie('accessToken');
+		if (token) {
+			if (jwtDecode(token).exp < new Date().getTime) {
+				await this.$api({
+					url: '/users/auth',
+					method: 'PUT',
+					headers: {
+						Authorization: `Bearer ${this.$auth.$storage.getCookie(
+							'refreshToken'
+						)}`,
+					},
+				}).then(({ data }) => {
+					this.$auth.$storage.setUniversal(
+						'accessToken',
+						data.access_token
+					);
+				});
 			}
-		},
-		signOut() {
-			Cookie.remove('auth');
-			this.$router.replace({ path: '/' });
-			this.hasLogin = false;
-			window.location.reload(true);
-		},
+			this.$api.setToken(
+				this.$auth.$storage.getCookie('accessToken'),
+				'Bearer'
+			);
+		}
 	},
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<div>{{ $store.state }}</div>
+	<h1>Dashboard</h1>
 </template>
 <script>
 export default {
