@@ -55,6 +55,10 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth',
 	],
+
+	axios: {
+		baseURL: 'https://dailydiet-api.herokuapp.com/',
+	},
 	/*
 	 ** Build configuration
 	 */
@@ -84,6 +88,11 @@ export default {
 						method: 'post',
 						propertyName: 'token',
 					},
+					logout: {
+						url: '/users/signout',
+						method: 'PATCH',
+					},
+					user: false,
 				},
 			},
 		},
@@ -94,6 +103,6 @@ export default {
 	},
 
 	bootstrapVue: {
-		icons: true, // Install the IconsPlugin (in addition to BootStrapVue plugin
+		icons: true,
 	},
 };
