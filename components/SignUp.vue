@@ -46,6 +46,7 @@
 					id="password"
 					v-model="form.password"
 					required
+					type="password"
 					placeholder="Enter password"
 				/>
 			</b-input-group>
@@ -60,6 +61,7 @@
 					id="confirm_password"
 					v-model="form.confirm_password"
 					required
+					type="password"
 					placeholder="Enter password again"
 				/>
 			</b-input-group>
@@ -67,9 +69,8 @@
 				Sign up
 			</b-button>
 			<hr />
-
 			<b-button
-				class="mt-4"
+				class="my-2"
 				block
 				variant="outline-primary"
 				pill

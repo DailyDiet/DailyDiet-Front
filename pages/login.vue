@@ -7,7 +7,7 @@
 					@changeState="changeState"
 				/>
 				<SignIn
-					v-if="registerState === 'signin'"
+					v-else-if="registerState === 'signin'"
 					@changeState="changeState"
 				/>
 			</div>
@@ -60,25 +60,5 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-.headerCardRegister {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 70px;
-	flex-direction: column;
-}
-.form {
-	width: 40vw;
-	max-width: 350px;
-
-	@media (max-width: 767px) {
-		width: 70vw;
-	}
-
-	@media (max-width: 576px) {
-		width: 100vw;
-		margin: 15px;
-	}
 }
 </style>

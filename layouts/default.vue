@@ -80,12 +80,18 @@ export default {
 							'refreshToken'
 						)}`,
 					},
-				}).then(({ data }) => {
-					this.$auth.$storage.setUniversal(
-						'accessToken',
-						data.access_token
-					);
-				});
+				})
+					.then(({ data }) => {
+						console.log(data);
+						this.$auth.$storage.setUniversal(
+							'accessToken',
+							data.access_token
+						);
+					})
+					.catch(err => {
+						console.error(err);
+						this.$toastErrors(err);
+					});
 			}
 			this.$api.setToken(
 				this.$auth.$storage.getCookie('accessToken'),

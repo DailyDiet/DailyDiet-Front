@@ -8,10 +8,11 @@ export function signUpAPI(that, data) {
 		data: JSON.stringify(data),
 	});
 }
-export function signInAPI(that, data) {
+
+export function modifyPasswordAPI(that, data) {
 	return that.$api({
-		url: '/users/signin',
-		method: 'POST',
+		url: '/users/signup/modify',
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
 		},
