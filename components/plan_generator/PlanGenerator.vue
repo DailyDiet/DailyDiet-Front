@@ -50,6 +50,20 @@
 				<i class="fas fa-calculator" /> Not sure?
 			</b-link>
 		</b-form-group>
+		<b-form-group
+			label-cols-sm="3"
+			label-cols-lg="3"
+			label="in"
+			label-for="meal"
+		>
+			<b-form-select
+				id="meal"
+				v-model="mealSelected"
+				:class="{ [$style.selectMeal]: true }"
+				text-field="title"
+				:options="mealOptions"
+			/>
+		</b-form-group>
 		<b-button
 			variant="success"
 			:class="['my-3', $style.selectMeal]"
@@ -67,6 +81,7 @@
 <script>
 import PlanGeneratorModal from './PlanGeneratorModal';
 import PlanGeneratorSelector from './PlanGeneratorSelector';
+import { getDietPlanAPI } from '~/services';
 
 export default {
 	components: {
@@ -113,13 +128,21 @@ export default {
 				imageUrl: 'icon-olive',
 			},
 		],
+		mealSelected: 'yevade',
+		mealOptions: [
+			{ title: '1 meal', value: 'yevade' },
+			{ title: '2 meals', value: 'dovade' },
+			{ title: '3 meals', value: 'sevade' },
+		],
 		calorie: 0,
 		bmi: '',
 	}),
 	mounted() {
 		if (this.plan && this.plan.dietType) {
 			this.dietTypeSelected = this.plan.dietType;
-			this.calorie = this.plan.dietCalories;
+			this.calorie = this.plan.dietCalorie;
+			this.mealSelected = this.plan.dietMeal;
+			this.generatePlan();
 		}
 	},
 	methods: {
@@ -128,11 +151,29 @@ export default {
 			this.bmi = `Your BMI status is " ${data.bmi.bmi_status} " and it's ${data.bmi.bmi_value}`;
 		},
 		generatePlan() {
-			const payload = {
-				dietType: this.dietTypeSelected,
-				calories: this.calorie,
-			};
-			this.$emit('update', payload);
+			if (this.$route.name === 'index') {
+				const payload = {
+					dietType: this.dietTypeSelected,
+					calorie: this.calorie,
+					meal: this.mealSelected,
+				};
+				this.$emit('update', payload);
+			}
+
+			getDietPlanAPI(this, this.mealSelected, this.calorie)
+				.then(({ data: { diet } }) => {
+					const meals = [];
+					diet.forEach((item, index) => {
+						if (index < diet.length - 1) {
+							meals.push(JSON.parse(item));
+						}
+					});
+					this.$emit('plan', meals);
+				})
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				});
 		},
 	},
 };

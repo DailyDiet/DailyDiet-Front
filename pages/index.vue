@@ -18,7 +18,8 @@ export default {
 				name: 'plan',
 				params: {
 					dietType: params.dietType,
-					dietCalories: params.calories,
+					dietCalorie: params.calorie,
+					dietMeal: params.meal,
 				},
 			});
 		},

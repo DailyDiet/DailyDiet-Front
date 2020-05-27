@@ -37,10 +37,17 @@
 					<div v-if="$auth.loggedIn">
 						<b-button
 							size="sm"
-							class="my-2 my-sm-1 mr-2"
+							class="my-2 my-sm-1"
 							@click="$router.push('dashboard')"
 						>
-							dashboard
+							Dashboard
+						</b-button>
+						<b-button
+							size="sm"
+							class="my-2 my-sm-1"
+							@click="$router.push('plan')"
+						>
+							Plan
 						</b-button>
 						<b-button
 							size="sm"
@@ -71,7 +78,7 @@ export default {
 	async mounted() {
 		const token = this.$auth.$storage.getCookie('accessToken');
 		if (token) {
-			if (jwtDecode(token).exp < new Date().getTime) {
+			if (jwtDecode(token).exp < new Date().getTime() / 1000) {
 				await this.$api({
 					url: '/users/auth',
 					method: 'PUT',
@@ -82,7 +89,6 @@ export default {
 					},
 				})
 					.then(({ data }) => {
-						console.log(data);
 						this.$auth.$storage.setUniversal(
 							'accessToken',
 							data.access_token

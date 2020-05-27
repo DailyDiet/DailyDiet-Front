@@ -3,7 +3,7 @@
 		<b-input-group class="my-2">
 			<template #prepend>
 				<b-input-group-text>
-					<i class="far fa-envelope"></i>
+					<i class="fas fa-unlock-alt"></i>
 				</b-input-group-text>
 			</template>
 			<b-form-input

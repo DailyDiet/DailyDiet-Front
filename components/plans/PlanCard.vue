@@ -3,22 +3,31 @@
 		<b-card
 			:class="[$style.mealCard, 'mt-5']"
 			style="width: 320px;"
-			@click="$emit('update')"
+			@click="$emit('update', meal.id)"
 		>
 			<template #header>
 				<div class="d-flex align-items-center justify-content-between">
 					<div>
 						<div>{{ meal.title }}</div>
 						<div :class="$style.extra">
-							{{ meal.calories }} Calories
+							{{ meal.nutrition.calories }} Calories
 						</div>
 					</div>
 					<div>
-						<b-icon-info-circle />
+						<b-icon-info-circle id="nutrition" />
+						<b-tooltip target="nutrition" placement="right">
+							<p
+								v-for="(item, index) in renderNutrition"
+								:key="index"
+								class="m-0"
+							>
+								{{ item[0] }} : {{ item[1] }}
+							</p>
+						</b-tooltip>
 					</div>
 				</div>
 			</template>
-			<b-img fluid :src="meal.image" rounded />
+			<b-img fluid :src="meal.image || placeholder" rounded center />
 			<b-card-text :class="[$style.extra, 'text-center']">
 				{{ meal.name }}
 			</b-card-text>
@@ -32,6 +41,18 @@ export default {
 		meal: {
 			type: Object,
 			required: true,
+		},
+	},
+	data: () => ({
+		placeholder:
+			'https://snappfood.ir/bundles/bodofoodfrontend/images/vendor/placeholder-new.jpg',
+		// nutrition: '',
+	}),
+	computed: {
+		renderNutrition() {
+			const nutrition = Object.entries(this.meal.nutrition);
+			console.log(nutrition);
+			return nutrition;
 		},
 	},
 };

@@ -1,16 +1,17 @@
 <template>
 	<b-modal
-		id="recipe"
+		id="recipeModal"
 		:title="recipe.food_name"
 		size="lg"
 		centered
 		hide-footer
+		@hide="$emit('close')"
 	>
 		<div style="padding: 0px 20px;">
 			<b-row>
 				<b-col cols="12" md="3" sm="6">
 					<b-img
-						:src="recipe.primary_image"
+						:src="recipe.primary_image || placeholder"
 						rounded
 						fluid
 						center
@@ -108,12 +109,18 @@
 <script>
 export default {
 	props: {
-		dietType: {
-			type: String,
-			default: 'Anything',
+		reciped: {
+			type: Object,
+			default: null,
+		},
+		show: {
+			type: Boolean,
+			default: true,
 		},
 	},
 	data: () => ({
+		placeholder:
+			'https://snappfood.ir/bundles/bodofoodfrontend/images/vendor/placeholder-new.jpg',
 		recipe: {
 			id: 906370,
 			food_name: 'Easy Sautéed Eggplant ',
@@ -256,16 +263,12 @@ export default {
 			],
 		},
 	}),
-	computed: {
-		maxProgress() {
-			const nutrition = this.recipe.nutrition;
-
-			return (
-				nutrition.calories +
-				nutrition.carbs +
-				nutrition.fats +
-				nutrition.proteins
-			);
+	watch: {
+		show() {
+			if (this.show) {
+				this.recipe = this.reciped;
+				this.$bvModal.show('recipeModal');
+			}
 		},
 	},
 };

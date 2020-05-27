@@ -4,7 +4,7 @@
 			<PlanGenerator
 				v-scroll-spy-link="{ selector: 'button.selectMeal_1-g6P' }"
 				:plan="$route.params"
-				@update="generatePlan"
+				@plan="setPlan"
 			/>
 		</div>
 		<div
@@ -17,16 +17,16 @@
 				<div class="d-flex flex-row justify-content-center">
 					<b-card-group class="justify-content-center" deck>
 						<PlanCard
-							v-for="meal in meals"
-							:key="meal.id"
-							v-b-modal.recipe
-							:meal="meal"
+							v-for="food in foods"
+							:key="food.id"
+							:meal="food"
+							@update="getFoodRecipe"
 						/>
 					</b-card-group>
 				</div>
 			</b-container>
 		</div>
-		<RecipeModal />
+		<RecipeModal :show="show" :reciped="recipe" @close="closeRecipeModal" />
 	</div>
 </template>
 
@@ -34,6 +34,7 @@
 import PlanCard from '~/components/plans/PlanCard.vue';
 import PlanGenerator from '~/components/plan_generator/PlanGenerator.vue';
 import RecipeModal from '~/components/recipe/RecipeModal.vue';
+import { getRecipeAPI } from '~/services';
 
 export default {
 	components: {
@@ -43,32 +44,10 @@ export default {
 	},
 	data: () => ({
 		section: 0,
-		meals: [
-			{
-				id: 1,
-				title: 'Breakfast',
-				calories: 169,
-				image:
-					'https://images.eatthismuch.com/site_media/img/474379_basic_bob_85fdce86-d113-4bd1-959e-e7063f32c8ae.png',
-				name: 'Blueberries',
-			},
-			{
-				id: 2,
-				title: 'Lunch',
-				calories: 235,
-				image:
-					'https://images.eatthismuch.com/site_media/img/331996_tabitharwheeler_85efa3b3-f132-4690-ad3b-2758f7af21de.jpg',
-				name: 'Cucumber & Hummus',
-			},
-			{
-				id: 3,
-				title: 'Dinner',
-				calories: 200,
-				image:
-					'https://images.eatthismuch.com/site_media/img/906295_Shamarie84_573150c9-b179-488b-8c75-67424b8c4087.png',
-				name: 'Pan Fried Fennel',
-			},
-		],
+		show: false,
+		meals: [],
+		recipe: null,
+		foods: [],
 	}),
 	mounted() {
 		if (this.$route.params && this.$route.params.dietType) {
@@ -76,7 +55,23 @@ export default {
 		}
 	},
 	methods: {
-		generatePlan() {},
+		setPlan(foods) {
+			this.foods = foods;
+		},
+		closeRecipeModal() {
+			this.show = false;
+		},
+		getFoodRecipe(id) {
+			getRecipeAPI(this, id)
+				.then(({ data }) => {
+					this.show = true;
+					this.recipe = data;
+				})
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				});
+		},
 	},
 };
 </script>
