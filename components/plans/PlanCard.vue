@@ -46,12 +46,10 @@ export default {
 	data: () => ({
 		placeholder:
 			'https://snappfood.ir/bundles/bodofoodfrontend/images/vendor/placeholder-new.jpg',
-		// nutrition: '',
 	}),
 	computed: {
 		renderNutrition() {
 			const nutrition = Object.entries(this.meal.nutrition);
-			console.log(nutrition);
 			return nutrition;
 		},
 	},

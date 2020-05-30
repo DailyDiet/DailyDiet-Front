@@ -168,7 +168,7 @@ export default {
 							meals.push(JSON.parse(item));
 						}
 					});
-					this.$emit('plan', meals);
+					this.$emit('plan', meals, diet[diet.length - 1]);
 				})
 				.catch(err => {
 					console.error(err);

@@ -13,6 +13,9 @@
 		>
 			<b-container fluid class="d-flex flex-column align-items-center">
 				<h1 class="mt-5">Today's Meal Plan</h1>
+				<span :class="$style.extra">
+					Sum of your food calories : {{ sumCalorie }}
+				</span>
 
 				<div class="d-flex flex-row justify-content-center">
 					<b-card-group class="justify-content-center" deck>
@@ -48,6 +51,7 @@ export default {
 		meals: [],
 		recipe: null,
 		foods: [],
+		sumCalorie: 0,
 	}),
 	mounted() {
 		if (this.$route.params && this.$route.params.dietType) {
@@ -55,8 +59,9 @@ export default {
 		}
 	},
 	methods: {
-		setPlan(foods) {
+		setPlan(foods, calorie) {
 			this.foods = foods;
+			this.sumCalorie = calorie;
 		},
 		closeRecipeModal() {
 			this.show = false;
@@ -77,6 +82,14 @@ export default {
 </script>
 
 <style module lang="scss">
+.extra {
+	text-overflow: ellipsis;
+	font-size: 18px;
+	color: #9c9c9c;
+	line-height: 12px;
+	font-weight: normal;
+	padding-top: 5px;
+}
 .headerImage {
 	height: 100vh;
 	background-image: url('../assets/images/bgblur.png');
