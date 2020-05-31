@@ -20,16 +20,18 @@
 
 			<b-collapse id="nav-collapse" is-nav>
 				<b-navbar-nav class="ml-auto">
-					<b-nav-form>
+					<b-nav-form v-if="$route.name !== 'search'">
 						<b-form-input
+							v-model="searchInput"
 							size="sm"
 							class="mr-sm-2"
 							placeholder="Search"
+							@keyup.enter="goToSearchPage"
 						/>
 						<b-button
 							size="sm"
 							class="my-2 my-sm-1 mr-2"
-							@click="$router.push('search')"
+							@click="goToSearchPage"
 						>
 							Search
 						</b-button>
@@ -75,6 +77,9 @@
 <script>
 import jwtDecode from 'jwt-decode';
 export default {
+	data: () => ({
+		searchInput: '',
+	}),
 	async mounted() {
 		const token = this.$auth.$storage.getCookie('accessToken');
 		if (token) {
@@ -104,6 +109,16 @@ export default {
 				'Bearer'
 			);
 		}
+	},
+	methods: {
+		goToSearchPage() {
+			this.$router.push({
+				name: 'search',
+				query: {
+					query: this.searchInput,
+				},
+			});
+		},
 	},
 };
 </script>

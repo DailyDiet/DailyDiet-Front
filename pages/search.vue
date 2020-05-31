@@ -1,151 +1,125 @@
 <template>
 	<div>
-		<b-container fluid>
+		<b-container>
 			<b-row class="d-flex justify-content-center">
-				<b-card
-					v-for="item in search"
-					:key="item.id"
-					:title="item.title"
-					:img-src="item.image"
-					img-alt="Image"
-					img-top
-					tag="article"
-					style="max-width: 300px;"
-					class="m-2"
+				<b-row class="w-100">
+					<b-col lg="3" sm="0"></b-col>
+					<b-col lg="6" sm="12">
+						<b-input-group class="mt-5">
+							<b-form-input
+								v-model="search.value"
+								@keyup.enter="fetchElasticSearch"
+							></b-form-input>
+							<b-input-group-append>
+								<b-button @click="fetchElasticSearch">
+									<i class="fas fa-search"></i>
+								</b-button>
+							</b-input-group-append>
+						</b-input-group>
+					</b-col>
+					<b-col lg="3" sm="0"></b-col>
+				</b-row>
+				<div
+					v-if="!isLoading"
+					class="d-flex justify-content-center align-items-center flex-column"
 				>
-					<!-- <b-button href="#" variant="primary">Go somewhere</b-button> -->
-				</b-card>
+					<b-card-group
+						v-if="foods"
+						class="justify-content-center"
+						deck
+					>
+						<PlanCard
+							v-for="food in foods"
+							:key="food.id"
+							:meal="food"
+							@update="getFoodRecipe"
+						/>
+					</b-card-group>
+					<h5 v-else class="mt-3">Not found</h5>
+					<b-pagination
+						v-if="foods"
+						v-model="search.page"
+						:total-rows="totalRows"
+						class="mt-3"
+					/>
+				</div>
+				<b-spinner v-else variant="info" class="mt-5"></b-spinner>
 			</b-row>
 		</b-container>
+		<RecipeModal :show="show" :reciped="recipe" @close="closeRecipeModal" />
 	</div>
 </template>
 
 <script>
+import { elasticSearchAPI, getRecipeAPI } from '~/services';
+import PlanCard from '~/components/plans/PlanCard.vue';
+import RecipeModal from '~/components/recipe/RecipeModal.vue';
+
 export default {
+	components: { PlanCard, RecipeModal },
 	data: () => ({
-		search: [
-			{
-				id: 33538,
-				calories: 557,
-				fat: 28.3,
-				fiber: 2.8,
-				protein: 11.2,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/images/food_icons_v3/spaghetti.png',
-				title: 'Spaghetti with olive oil and garlic sauce',
-				link: '/foods/recipe/33538',
-			},
-			{
-				id: 905979,
-				calories: 423,
-				fat: 12.3,
-				fiber: 4,
-				protein: 24.2,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/images/food_icons_v3/spaghetti.png',
-				title: 'Spaghetti with Meat Sauce',
-				link: '/foods/recipe/905979',
-			},
-			{
-				id: 938719,
-				calories: 166,
-				fat: 4.5,
-				fiber: 1.2,
-				protein: 8.6,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/images/food_icons_v3/spaghetti.png',
-				title: 'Spaghetti Nests',
-				link: '/foods/recipe/938719',
-			},
-			{
-				id: 45973,
-				calories: 384,
-				fat: 19.2,
-				fiber: 1.4,
-				protein: 17.6,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/45282_erin_m_aae38a6f-3ce6-4e19-b490-0660f19cd362.png',
-				title: 'Spaghetti Carbonara',
-				link: '/foods/recipe/45973',
-			},
-			{
-				id: 1493432,
-				calories: 591,
-				fat: 15.8,
-				fiber: 4.7,
-				protein: 16.7,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/45484_simmyras_6fa53636-8e2c-4eea-a446-d8dbdaa70b95.png',
-				title: 'Spaghetti with Mushrooms, Garlic and Oil',
-				link: '/foods/recipe/1493432',
-			},
-			{
-				id: 45545,
-				calories: 343,
-				fat: 14.5,
-				fiber: 2.8,
-				protein: 8.5,
-				category: 'main_dish           ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/347160_DivaAsiene_38bb6b41-149d-4dfb-bdb3-3700143897f7.png',
-				title: 'Broccoli Spaghetti Soup',
-				link: '/foods/recipe/45545',
-			},
-			{
-				id: 45594,
-				calories: 593,
-				fat: 21,
-				fiber: 7.4,
-				protein: 22.7,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/334029_courtneydesire_cfa4932d-13cc-4825-9249-3ecd3dad82a3.png',
-				title: 'Spaghetti alla Puttanesca',
-				link: '/foods/recipe/45594',
-			},
-			{
-				id: 933771,
-				calories: 1723,
-				fat: 58.3,
-				fiber: 19.8,
-				protein: 72.2,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/906951_goldtbird_2f639279-371c-44f6-8aca-b44fb96e02a4.png',
-				title: 'Lemon Zest Shrimp Over Spaghetti',
-				link: '/foods/recipe/933771',
-			},
-			{
-				id: 940700,
-				calories: 467,
-				fat: 14.4,
-				fiber: 3.7,
-				protein: 15.9,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/images/food_icons_v3/spaghetti.png',
-				title: 'One-Pot Spaghetti with Fresh Tomato Sauce',
-				link: '/foods/recipe/940700',
-			},
-			{
-				id: 976257,
-				calories: 646,
-				fat: 18,
-				fiber: 8.2,
-				protein: 35.8,
-				category: 'pasta               ',
-				image:
-					'https://images.eatthismuch.com/site_media/thmb/210950_FierceSappho_efcdad76-fcc4-44a5-8f32-34efa3e812ec.png',
-				title: 'Spaghetti Bolognese',
-				link: '/foods/recipe/976257',
-			},
-		],
+		foods: [],
+		placeholder:
+			'https://snappfood.ir/bundles/bodofoodfrontend/images/vendor/placeholder-new.jpg',
+		show: false,
+		recipe: null,
+		isLoading: false,
+		search: {
+			value: '',
+			page: 1,
+			offset: 12,
+		},
+		totalRows: 0,
 	}),
+	watch: {
+		'search.page'() {
+			this.fetchElasticSearch();
+		},
+	},
+	mounted() {
+		if (this.$route.query && this.$route.query.query) {
+			this.search.value = this.$route.query.query;
+			this.fetchElasticSearch();
+		}
+	},
+	methods: {
+		fetchElasticSearch() {
+			this.isLoading = true;
+			const params = {
+				query: this.search.value,
+				page: this.search.page,
+				per_page: this.search.offset,
+			};
+			elasticSearchAPI(this, params)
+				// eslint-disable-next-line camelcase
+				.then(({ data: { results, total_results_count } }) => {
+					// eslint-disable-next-line camelcase
+					this.totalRows = total_results_count;
+					this.foods = results;
+				})
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.isLoading = false;
+				});
+		},
+		closeRecipeModal() {
+			this.show = false;
+		},
+		getFoodRecipe(id) {
+			getRecipeAPI(this, id)
+				.then(({ data }) => {
+					this.show = true;
+					this.recipe = data;
+				})
+				.catch(err => {
+					console.error(err);
+					this.$toastErrors(err);
+				});
+		},
+	},
 };
 </script>
 
