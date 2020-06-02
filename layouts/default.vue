@@ -26,7 +26,6 @@
 							size="sm"
 							class="mr-sm-2"
 							placeholder="Search"
-							@keyup.enter="goToSearchPage"
 						/>
 						<b-button
 							size="sm"

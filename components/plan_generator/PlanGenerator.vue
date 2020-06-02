@@ -165,7 +165,7 @@ export default {
 					const meals = [];
 					diet.forEach((item, index) => {
 						if (index < diet.length - 1) {
-							meals.push(JSON.parse(item));
+							meals.push(item);
 						}
 					});
 					this.$emit('plan', meals, diet[diet.length - 1]);

@@ -9,7 +9,7 @@
 							<b-form-input
 								v-model="search.value"
 								@keyup.enter="fetchElasticSearch"
-							></b-form-input>
+							/>
 							<b-input-group-append>
 								<b-button @click="fetchElasticSearch">
 									<i class="fas fa-search"></i>
@@ -37,7 +37,7 @@
 					</b-card-group>
 					<h5 v-else class="mt-3">Not found</h5>
 					<b-pagination
-						v-if="foods"
+						v-if="foods.length"
 						v-model="search.page"
 						:total-rows="totalRows"
 						class="mt-3"
