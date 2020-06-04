@@ -8,6 +8,7 @@
 						<b-input-group class="mt-5">
 							<b-form-input
 								v-model="search.value"
+								placeholder="Search"
 								@keyup.enter="fetchElasticSearch"
 							/>
 							<b-input-group-append>
