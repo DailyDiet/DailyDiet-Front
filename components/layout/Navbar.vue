@@ -12,11 +12,15 @@
 		<b-navbar-toggle target="nav-collapse" />
 
 		<b-collapse id="nav-collapse" is-nav>
-			<b-navbar-nav v-if="$auth.loggedIn">
-				<b-nav-item @click="$router.push('dashboard')">
+			<b-navbar-nav>
+				<b-nav-item
+					v-if="$auth.loggedIn"
+					@click="$router.push('dashboard')"
+				>
 					Dashboard
 				</b-nav-item>
 				<b-nav-item @click="$router.push('plan')">Plan</b-nav-item>
+				<b-nav-item @click="$router.push('about')">About us</b-nav-item>
 			</b-navbar-nav>
 			<b-navbar-nav v-if="!isSearchPage" class="ml-auto">
 				<b-input-group size="sm">

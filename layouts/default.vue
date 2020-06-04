@@ -1,15 +1,18 @@
 <template>
 	<div>
 		<Navbar />
-		<nuxt />
+		<nuxt :class="$style.defaultLayout" />
+		<Footer />
 	</div>
 </template>
 <script>
 import jwtDecode from 'jwt-decode';
 import Navbar from '~/components/layout/Navbar';
+import Footer from '~/components/layout/Footer';
 export default {
 	components: {
 		Navbar,
+		Footer,
 	},
 	async created() {
 		const token = this.$auth.$storage.getCookie('accessToken');
@@ -43,3 +46,8 @@ export default {
 	},
 };
 </script>
+<style lang="scss" module>
+.defaultLayout {
+	min-height: 80vh;
+}
+</style>
