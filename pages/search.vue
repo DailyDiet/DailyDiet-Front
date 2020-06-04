@@ -25,7 +25,7 @@
 					class="d-flex justify-content-center align-items-center flex-column"
 				>
 					<b-card-group
-						v-if="foods"
+						v-if="foods.length"
 						class="justify-content-center"
 						deck
 					>
@@ -91,6 +91,15 @@ export default {
 				page: this.search.page,
 				per_page: this.search.offset,
 			};
+
+			this.$router.push({
+				query: {
+					query: this.search.value,
+					page: this.search.page,
+					per_page: this.search.offset,
+				},
+			});
+
 			elasticSearchAPI(this, params)
 				// eslint-disable-next-line camelcase
 				.then(({ data: { results, total_results_count } }) => {

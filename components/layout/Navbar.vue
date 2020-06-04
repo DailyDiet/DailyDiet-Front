@@ -95,7 +95,6 @@ export default {
 	},
 	methods: {
 		goToSearchPage() {
-			console.log('debugger');
 			this.$router.push({
 				name: 'search',
 				query: {
