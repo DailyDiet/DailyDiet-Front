@@ -11,7 +11,7 @@ export default {
 	components: {
 		Navbar,
 	},
-	async mounted() {
+	async created() {
 		const token = this.$auth.$storage.getCookie('accessToken');
 		if (token) {
 			if (jwtDecode(token).exp < new Date().getTime() / 1000) {

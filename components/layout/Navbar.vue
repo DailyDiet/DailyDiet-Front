@@ -1,5 +1,5 @@
 <template>
-	<b-navbar toggleable="lg" type="dark" variant="dark" fixed="top" sticky>
+	<b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky>
 		<b-navbar-brand href="/">
 			<b-img
 				rounded
@@ -34,18 +34,28 @@
 			</b-navbar-nav>
 			<b-navbar-nav
 				:class="{
-					['ml-2']: true,
+					['ml-2']: !$isMobile,
 					['ml-auto']: isSearchPage,
 				}"
 			>
-				<b-button
-					v-if="$auth.loggedIn"
-					size="sm"
-					class="my-2 my-sm-1"
-					@click="$auth.logout()"
-				>
-					Sign out
-				</b-button>
+				<b-nav-item-dropdown v-if="$auth.loggedIn" right>
+					<template #button-content>
+						<i
+							style="font-size: 20px;"
+							class="fas fa-user-circle"
+						></i>
+					</template>
+					<b-dropdown-item @click="$router.push('profile')">
+						Profile
+					</b-dropdown-item>
+					<b-dropdown-divider></b-dropdown-divider>
+					<b-dropdown-item v-b-modal.modify_password>
+						Modify Password
+					</b-dropdown-item>
+					<b-dropdown-item @click="$auth.logout()">
+						Sign Out
+					</b-dropdown-item>
+				</b-nav-item-dropdown>
 
 				<b-button
 					v-else
@@ -57,12 +67,26 @@
 				</b-button>
 			</b-navbar-nav>
 		</b-collapse>
+		<b-modal
+			id="modify_password"
+			title="Modify password"
+			hide-footer
+			size="sm"
+		>
+			<Modify />
+		</b-modal>
 	</b-navbar>
 </template>
 <script>
+import Modify from '~/components/Modify.vue';
+
 export default {
+	components: {
+		Modify,
+	},
 	data: () => ({
 		searchInput: '',
+		isLoading: false,
 	}),
 	computed: {
 		isSearchPage() {
@@ -77,6 +101,12 @@ export default {
 				query: {
 					query: this.searchInput,
 				},
+			});
+		},
+		logOut() {
+			this.isLoading = true;
+			this.$auth.logout().finally(() => {
+				this.isLoading = false;
 			});
 		},
 	},

@@ -40,6 +40,8 @@ export default {
 	plugins: [
 		'~/plugins/axios',
 		'~/plugins/smooth-scroll',
+
+		'~/plugins/mixins/is-mobile',
 		'~/plugins/mixins/toast',
 	],
 	/*

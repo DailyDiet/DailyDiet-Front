@@ -65,9 +65,23 @@
 					placeholder="Enter password again"
 				/>
 			</b-input-group>
-			<b-button type="submit" class="mt-4" block variant="primary" pill>
-				Sign up
-			</b-button>
+			<b-overlay
+				:show="busy"
+				rounded
+				opacity="0.6"
+				spinner-small
+				spinner-variant="primary"
+			>
+				<b-button
+					type="submit"
+					class="mt-4"
+					block
+					variant="primary"
+					pill
+				>
+					Sign up
+				</b-button>
+			</b-overlay>
 			<hr />
 			<b-button
 				class="my-2"
@@ -93,9 +107,11 @@ export default {
 			password: '',
 			confirm_password: '',
 		},
+		busy: false,
 	}),
 	methods: {
 		onSubmit(evt) {
+			this.busy = true;
 			evt.preventDefault();
 			signUpAPI(this, this.form)
 				.then(res => {
@@ -104,6 +120,9 @@ export default {
 				.catch(err => {
 					console.error(err);
 					this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.busy = false;
 				});
 		},
 	},
