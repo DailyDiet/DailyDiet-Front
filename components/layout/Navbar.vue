@@ -18,28 +18,7 @@
 				</b-nav-item>
 				<b-nav-item @click="$router.push('plan')">Plan</b-nav-item>
 			</b-navbar-nav>
-			<b-navbar-nav class="ml-auto">
-				<div v-if="$auth.loggedIn">
-					<b-button
-						size="sm"
-						class="my-2 my-sm-1 mr-2"
-						@click="$auth.logout()"
-					>
-						Sign out
-					</b-button>
-				</div>
-
-				<div v-else>
-					<b-button
-						size="sm"
-						class="my-2 my-sm-1 mr-2"
-						@click="$router.push('login')"
-					>
-						Sign in
-					</b-button>
-				</div>
-			</b-navbar-nav>
-			<b-navbar-nav v-if="$route.name !== 'search'">
+			<b-navbar-nav v-if="!isSearchPage" class="ml-auto">
 				<b-input-group size="sm">
 					<b-form-input
 						v-model="searchInput"
@@ -53,6 +32,30 @@
 					</b-input-group-append>
 				</b-input-group>
 			</b-navbar-nav>
+			<b-navbar-nav
+				:class="{
+					['ml-2']: true,
+					['ml-auto']: isSearchPage,
+				}"
+			>
+				<b-button
+					v-if="$auth.loggedIn"
+					size="sm"
+					class="my-2 my-sm-1"
+					@click="$auth.logout()"
+				>
+					Sign out
+				</b-button>
+
+				<b-button
+					v-else
+					size="sm"
+					class="my-2 my-sm-1"
+					@click="$router.push('login')"
+				>
+					Sign in
+				</b-button>
+			</b-navbar-nav>
 		</b-collapse>
 	</b-navbar>
 </template>
@@ -61,6 +64,11 @@ export default {
 	data: () => ({
 		searchInput: '',
 	}),
+	computed: {
+		isSearchPage() {
+			return this.$route.name === 'search';
+		},
+	},
 	methods: {
 		goToSearchPage() {
 			console.log('debugger');
