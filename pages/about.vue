@@ -19,83 +19,12 @@
 						service supported by a small and dedicated team.
 					</p>
 				</b-col>
-
-				<b-col lg="3">
-					<b-card>
+				<b-col v-for="(person, index) in persons" :key="index" lg="3">
+					<b-card class="mt-2">
 						<div :class="$style.profileAvatar">
-							<b-avatar
-								button
-								src="https://placekitten.com/300/300"
-								size="10rem"
-							/>
-							<h3 class="mt-3">Iman malekian</h3>
-							<h6>Front End developer</h6>
-							<div :class="$style.profileSocial">
-								<i :class="['fab fa-linkedin', $style.item]" />
-								<i
-									:class="[
-										'fab fa-twitter-square',
-										$style.item,
-									]"
-								/>
-							</div>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col lg="3">
-					<b-card>
-						<div :class="$style.profileAvatar">
-							<b-avatar
-								button
-								src="https://placekitten.com/300/300"
-								size="10rem"
-							/>
-							<h3 class="mt-3">Iman malekian</h3>
-							<h6>Front End developer</h6>
-							<div :class="$style.profileSocial">
-								<i :class="['fab fa-linkedin', $style.item]" />
-								<i
-									:class="[
-										'fab fa-twitter-square',
-										$style.item,
-									]"
-								/>
-							</div>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col lg="3">
-					<b-card>
-						<div :class="$style.profileAvatar">
-							<b-avatar
-								button
-								src="https://placekitten.com/300/300"
-								size="10rem"
-							/>
-							<h3 class="mt-3">Iman malekian</h3>
-							<h6>Front End developer</h6>
-							<div :class="$style.profileSocial">
-								<i :class="['fab fa-linkedin', $style.item]" />
-								<i
-									:class="[
-										'fab fa-twitter-square',
-										$style.item,
-									]"
-								/>
-							</div>
-						</div>
-					</b-card>
-				</b-col>
-				<b-col lg="3">
-					<b-card>
-						<div :class="$style.profileAvatar">
-							<b-avatar
-								button
-								src="https://placekitten.com/300/300"
-								size="10rem"
-							/>
-							<h3 class="mt-3">Iman malekian</h3>
-							<h6>Front End developer</h6>
+							<b-avatar button :src="person.image" size="10rem" />
+							<h5 class="mt-3">{{ person.name }}</h5>
+							<h6>{{ person.position }}</h6>
 							<div :class="$style.profileSocial">
 								<i :class="['fab fa-linkedin', $style.item]" />
 								<i
@@ -114,7 +43,48 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data: () => ({
+		persons: [
+			{
+				name: 'Dr. Amin Gheibi',
+				position: 'Supervisor',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C5603AQFXU3dx1Fsp-w/profile-displayphoto-shrink_800_800/0?e=1596672000&v=beta&t=5h2txB5zax3AXDX-4cRXKwKfq_Q8uMIw0SObw2jG0Yg',
+			},
+			{
+				name: 'Kimia Ghaffari',
+				position: 'Mentor',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C5603AQHr6fSM8YRNWg/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=VfjPRp6TKI4ciPdqyUEcbaRzwvLh8pU0TRwoh1XlApU',
+			},
+			{
+				name: 'Iman Malekian',
+				position: 'Front End developer',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C4D03AQFX9E0HSDZtqg/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=zUUP7e-f9jgrzpgnh738adIyYTh5Epsv66ejc6RT8rM',
+			},
+			{
+				name: 'Hossein Malekpour',
+				position: 'Back End developer',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C4D03AQHKenVlBsSZww/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=cV4AeHftUvzH-_1VLWiLDJWWBhfRmjeldBD7wcR1hi8',
+			},
+			{
+				name: 'Yassaman Ommi',
+				position: 'Back End developer',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQFKdylSEWvZ9g/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=zpoe5Rs1rkLCRK1QkGzkX_JFoRgm2JiE3fO7nBlAyTM',
+			},
+			{
+				name: 'Nima Afshar',
+				position: 'Back End developer',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C4D03AQHilMXqP1N1Yw/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=ot3pc-Gzef5rlfWMczwKsg4Yxoom9QOqrnzo7CgyEyM',
+			},
+		],
+	}),
+};
 </script>
 
 <style module lang="scss">
