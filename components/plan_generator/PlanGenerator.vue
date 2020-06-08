@@ -1,34 +1,5 @@
 <template>
 	<b-container :class="$style.dietBox">
-		<b-row>
-			<b-col
-				v-for="dietType in dietTypeOptions"
-				:key="`diet_type_${dietType.id}`"
-				:class="$style.foods"
-				cols="4"
-				sm="2"
-			>
-				<PlanGeneratorSelector
-					v-model="dietTypeSelected"
-					:plan-name="dietType.title"
-				>
-					<template #content>
-						<div :class="$style.items">
-							<img
-								:src="
-									require(`~/assets/images/filter-diet/${dietType.imageUrl}.png`)
-								"
-								:class="$style.image"
-								:alt="dietType.title"
-							/>
-							<span style="font-size: 13px;">
-								{{ dietType.title }}
-							</span>
-						</div>
-					</template>
-				</PlanGeneratorSelector>
-			</b-col>
-		</b-row>
 		<b-form-group
 			class="mt-3"
 			label-cols-sm="3"
@@ -71,21 +42,16 @@
 		>
 			Generate
 		</b-button>
-		<PlanGeneratorModal
-			:diet-type="dietTypeSelected"
-			@update="setCalorie"
-		/>
+		<PlanGeneratorModal @update="setCalorie" />
 	</b-container>
 </template>
 
 <script>
 import PlanGeneratorModal from './PlanGeneratorModal';
-import PlanGeneratorSelector from './PlanGeneratorSelector';
 import { getDietPlanAPI } from '~/services';
 
 export default {
 	components: {
-		PlanGeneratorSelector,
 		PlanGeneratorModal,
 	},
 	props: {
@@ -95,39 +61,6 @@ export default {
 		},
 	},
 	data: () => ({
-		dietTypeSelected: 'Anything',
-		dietTypeOptions: [
-			{
-				id: 1,
-				title: 'Anything',
-				imageUrl: 'icon-sandwich',
-			},
-			{
-				id: 2,
-				title: 'Paleo',
-				imageUrl: 'icon-paleo-diet',
-			},
-			{
-				id: 3,
-				title: 'Vegetarian',
-				imageUrl: 'icon-broccoli',
-			},
-			{
-				id: 4,
-				title: 'Vegan',
-				imageUrl: 'icon-vegan-symbol',
-			},
-			{
-				id: 5,
-				title: 'Ketogenic',
-				imageUrl: 'icon-no-gluten',
-			},
-			{
-				id: 6,
-				title: 'Mediterranean',
-				imageUrl: 'icon-olive',
-			},
-		],
 		mealSelected: 'yevade',
 		mealOptions: [
 			{ title: '1 meal', value: 'yevade' },
@@ -138,8 +71,7 @@ export default {
 		bmi: '',
 	}),
 	mounted() {
-		if (this.plan && this.plan.dietType) {
-			this.dietTypeSelected = this.plan.dietType;
+		if (this.plan && this.plan.dietCalorie) {
 			this.calorie = this.plan.dietCalorie;
 			this.mealSelected = this.plan.dietMeal;
 			this.generatePlan();
@@ -153,7 +85,6 @@ export default {
 		generatePlan() {
 			if (this.$route.name === 'index') {
 				const payload = {
-					dietType: this.dietTypeSelected,
 					calorie: this.calorie,
 					meal: this.mealSelected,
 				};

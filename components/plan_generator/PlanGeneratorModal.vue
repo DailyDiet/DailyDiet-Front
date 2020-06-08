@@ -4,13 +4,6 @@
 			<b-form @submit.prevent="calculateBmi">
 				<b-form-group
 					label-cols-lg="4"
-					label="Current diet type"
-					label-for="dietType"
-				>
-					<span>{{ dietType }}</span>
-				</b-form-group>
-				<b-form-group
-					label-cols-lg="4"
 					label="I want to"
 					label-for="goal"
 					style="white-space: nowrap;"
@@ -150,12 +143,6 @@
 <script>
 import { calculateCalorieAPI, calculateBmiAPI } from '~/services';
 export default {
-	props: {
-		dietType: {
-			type: String,
-			default: 'Anything',
-		},
-	},
 	data: () => ({
 		show: false,
 		dataEmited: {},

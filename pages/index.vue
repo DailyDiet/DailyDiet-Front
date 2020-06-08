@@ -13,13 +13,11 @@ import PlanGenerator from '~/components/plan_generator/PlanGenerator.vue';
 
 export default {
 	components: { PlanGenerator },
-	data: () => ({}),
 	methods: {
 		generatePlan(params) {
 			this.$router.push({
 				name: 'plan',
 				params: {
-					dietType: params.dietType,
 					dietCalorie: params.calorie,
 					dietMeal: params.meal,
 				},
