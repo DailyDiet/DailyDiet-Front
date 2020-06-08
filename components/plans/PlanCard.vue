@@ -8,7 +8,7 @@
 			<template #header>
 				<div class="d-flex align-items-center justify-content-between">
 					<div>
-						<div>{{ meal.title }}</div>
+						<div :class="$style.maelTitle">{{ meal.title }}</div>
 						<div :class="$style.extra">
 							{{ meal.nutrition.calories }} Calories
 						</div>
@@ -27,10 +27,15 @@
 					</div>
 				</div>
 			</template>
-			<b-img fluid :src="meal.image || placeholder" rounded center />
-			<b-card-text :class="[$style.extra, 'text-center']">
-				{{ meal.name }}
-			</b-card-text>
+			<b-card-body class="p-0">
+				<b-img
+					:src="meal.image || placeholder"
+					rounded
+					center
+					:width="278"
+					:height="208"
+				/>
+			</b-card-body>
 		</b-card>
 	</div>
 </template>
@@ -70,5 +75,12 @@ export default {
 		cursor: pointer;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
 	}
+}
+
+.maelTitle {
+	width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 </style>
