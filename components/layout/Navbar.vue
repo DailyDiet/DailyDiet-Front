@@ -1,5 +1,11 @@
 <template>
-	<b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky>
+	<b-navbar
+		:class="$style.navBar"
+		toggleable="md"
+		type="dark"
+		fixed="top"
+		sticky
+	>
 		<b-navbar-brand href="/">
 			<b-img
 				rounded
@@ -19,11 +25,13 @@
 				>
 					Dashboard
 				</b-nav-item>
-				<b-nav-item @click="$router.push('plan')">Plan</b-nav-item>
+				<b-nav-item v-if="$auth.loggedIn" @click="$router.push('plan')">
+					Plan
+				</b-nav-item>
 				<b-nav-item @click="$router.push('about')">About us</b-nav-item>
 			</b-navbar-nav>
 			<b-navbar-nav v-if="!isSearchPage" class="ml-auto">
-				<b-input-group size="sm">
+				<b-input-group size="sm" class="mr-2">
 					<b-form-input
 						v-model="searchInput"
 						placeholder="Search"
@@ -38,7 +46,6 @@
 			</b-navbar-nav>
 			<b-navbar-nav
 				:class="{
-					['ml-2']: !$isMobile,
 					['ml-auto']: isSearchPage,
 				}"
 			>
@@ -99,6 +106,10 @@ export default {
 	},
 	methods: {
 		goToSearchPage() {
+			if (!this.$auth.loggedIn) {
+				this.$router.push('login');
+				return;
+			}
 			this.$router.push({
 				name: 'search',
 				query: {
@@ -115,3 +126,8 @@ export default {
 	},
 };
 </script>
+<style lang="scss" module>
+.navBar {
+	background-color: #22344b;
+}
+</style>
