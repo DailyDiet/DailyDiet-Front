@@ -36,8 +36,7 @@
 			/>
 		</b-form-group>
 		<b-button
-			variant="success"
-			:class="['my-3', $style.selectMeal]"
+			:class="['my-3', $style.selectMeal, $style.btnGenerate]"
 			@click="generatePlan"
 		>
 			Generate
@@ -84,11 +83,16 @@ export default {
 		},
 		generatePlan() {
 			if (this.$route.name === 'index') {
-				const payload = {
-					calorie: this.calorie,
-					meal: this.mealSelected,
-				};
-				this.$emit('update', payload);
+				if (!this.$auth.loggedIn) {
+					this.$emit('step');
+				} else {
+					const payload = {
+						calorie: this.calorie,
+						meal: this.mealSelected,
+					};
+					this.$emit('update', payload);
+				}
+				return;
 			}
 
 			getDietPlanAPI(this, this.mealSelected, this.calorie)
@@ -112,12 +116,14 @@ export default {
 
 <style module lang="scss">
 .dietBox {
-	background-color: #ffffff;
+	background-color: #fff;
 	border-radius: 10px;
 	max-width: 750px;
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+	// color: #8db1ab;
 }
 
 .foods {
@@ -141,6 +147,15 @@ $desktop-width: 576px;
 	width: 50%;
 	@media (max-width: #{$desktop-width}) {
 		width: 100%;
+	}
+}
+.btnGenerate {
+	background-color: #ff773d;
+	border: #ff773d;
+
+	&:hover {
+		background-color: #ff601c;
+		border: none;
 	}
 }
 </style>
