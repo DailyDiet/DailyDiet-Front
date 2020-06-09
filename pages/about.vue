@@ -25,7 +25,7 @@
 							<b-avatar button :src="person.image" size="10rem" />
 							<h5 class="mt-3">{{ person.name }}</h5>
 							<h6>{{ person.position }}</h6>
-							<div :class="$style.profileSocial">
+							<!-- <div :class="$style.profileSocial">
 								<i :class="['fab fa-linkedin', $style.item]" />
 								<i
 									:class="[
@@ -33,7 +33,7 @@
 										$style.item,
 									]"
 								/>
-							</div>
+							</div> -->
 						</div>
 					</b-card>
 				</b-col>
