@@ -110,7 +110,7 @@
 					/>
 				</b-form-group>
 				<div class="w-100 d-flex justify-content-center">
-					<b-button variant="success" class="mt-4 w-50" type="submit">
+					<b-button variant="primary" class="mt-4 w-50" type="submit">
 						<i class="fas fa-calculator" /> Calculate
 					</b-button>
 				</div>
