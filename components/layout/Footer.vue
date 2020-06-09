@@ -32,7 +32,7 @@ export default {
 <style lang="scss" module>
 .footerBody {
 	padding: 30px 50px;
-	background-color: #343a40;
+	background-color: #22344b;
 	color: rgba(255, 255, 255, 0.5);
 }
 .socialLinkHeader {
