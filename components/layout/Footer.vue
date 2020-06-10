@@ -2,8 +2,14 @@
 	<footer :class="$style.footerBody">
 		<b-row>
 			<b-col lg="9">
-				<h4>Daily diet</h4>
-				<p>hello...</p>
+				<h4>Daily Diet</h4>
+				<p>
+					We're a small company focused on providing tools and support
+					for people who want to take control over their nutrition.
+					Given the saturation of information in the diet industry, we
+					focus on more pragmatic elements of healthy eating such as
+					planning, shopping and cooking.
+				</p>
 			</b-col>
 			<b-col lg="3">
 				<b-list-group>
@@ -36,15 +42,15 @@ export default {
 	color: rgba(255, 255, 255, 0.5);
 }
 .socialLinkHeader {
-	background-color: transparent;
-	border: none;
+	background-color: #22344b !important;
+	border: none !important;
 }
 .socialLink {
-	background-color: transparent;
-	border: none;
+	background-color: #22344b !important;
+	border: none !important;
 	&:hover {
 		color: #1da1f2;
-		background-color: transparent;
+		// background-color: #22344b;
 		cursor: pointer;
 	}
 }

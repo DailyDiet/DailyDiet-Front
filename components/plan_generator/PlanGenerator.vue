@@ -36,7 +36,8 @@
 			/>
 		</b-form-group>
 		<b-button
-			:class="['my-3', $style.selectMeal, $style.btnGenerate]"
+			variant="primary"
+			:class="['my-3', $style.selectMeal]"
 			@click="generatePlan"
 		>
 			Generate
@@ -123,7 +124,6 @@ export default {
 	display: flex;
 	flex-direction: column;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
-	// color: #8db1ab;
 }
 
 .foods {
@@ -147,15 +147,6 @@ $desktop-width: 576px;
 	width: 50%;
 	@media (max-width: #{$desktop-width}) {
 		width: 100%;
-	}
-}
-.btnGenerate {
-	background-color: #ff773d;
-	border: #ff773d;
-
-	&:hover {
-		background-color: #ff601c;
-		border: none;
 	}
 }
 </style>

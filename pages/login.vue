@@ -55,8 +55,10 @@ export default {
 <style module lang="scss">
 .headerImage {
 	height: 100vh;
-	background-image: url('../assets/images/bgblur.png');
+	background-image: url('../assets/images/section1.jpg');
 	background-size: cover;
+	background-position: center;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;

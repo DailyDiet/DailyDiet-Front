@@ -1,8 +1,8 @@
 <template>
 	<div v-scroll-spy="{ data: 'section' }">
-		<div :class="$style.headerImage">
+		<div :class="$style.section1">
 			<b-row class="m-0 w-100">
-				<b-col lg="2" md="2" sm="1"></b-col>
+				<b-col lg="1" md="2" sm="1"></b-col>
 				<b-col lg="5" md="5" sm="10" class="text-center">
 					<h1>About Eat This Much</h1>
 					<p style="font-size: 24px;">
@@ -16,13 +16,38 @@
 						Lets start
 					</b-button>
 				</b-col>
-				<b-col lg="5" md="5" sm="1"> </b-col>
+				<b-col lg="6" md="5" sm="1"> </b-col>
 			</b-row>
 		</div>
-		<div :class="$style.breaker">
-			<PlanGenerator @update="generatePlan" @step="$scrollTo(2)" />
+		<div :class="$style.section2">
+			<PlanGenerator @update="generatePlan" @step="$scrollTo(3)" />
 		</div>
-		<div :class="$style.breakerImage">
+		<div :class="$style.section3">
+			<b-row class="w-100">
+				<b-col lg="3" sm="0"></b-col>
+				<b-col
+					lg="6"
+					sm="12"
+					class="d-flex justify-content-center align-items-center flex-column"
+				>
+					<span :class="$style.searchFood">Search Food</span>
+					<b-input-group>
+						<b-form-input
+							v-model="searchInput"
+							placeholder="Search"
+							@keyup.enter="goToSearchPage"
+						/>
+						<b-input-group-append>
+							<b-button @click="goToSearchPage">
+								<i class="fas fa-search"></i>
+							</b-button>
+						</b-input-group-append>
+					</b-input-group>
+				</b-col>
+				<b-col lg="3" sm="0"></b-col>
+			</b-row>
+		</div>
+		<div v-if="!$auth.loggedIn" :class="$style.section4">
 			<b-row class="m-0 w-100">
 				<b-col lg="6" md="2" sm="1"></b-col>
 				<b-col lg="4" md="5" sm="10" class="text-center">
@@ -42,6 +67,7 @@ import PlanGenerator from '~/components/plan_generator/PlanGenerator.vue';
 
 export default {
 	components: { PlanGenerator },
+	data: () => ({ searchInput: '' }),
 	methods: {
 		generatePlan(params) {
 			this.$router.push({
@@ -52,15 +78,44 @@ export default {
 				},
 			});
 		},
+		goToSearchPage() {
+			if (!this.$auth.loggedIn) {
+				this.$router.push('login');
+				return;
+			}
+			this.$router.push({
+				name: 'search',
+				query: {
+					query: this.searchInput,
+				},
+			});
+		},
 	},
 };
 </script>
 
 <style module lang="scss">
-.breaker {
+.searchFood {
+	font-size: 40px;
+	color: #ff773d;
+	font-weight: bold;
+	text-align: center;
+}
+.section1 {
+	height: 100vh;
+	background-image: url('../assets/images/section1.jpg');
+	background-size: cover;
+	background-position: center;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.section2 {
 	background-color: #fff2d0;
 	height: 100vh;
-	background-image: url('../assets/images/p2.png');
+	background-image: url('../assets/images/section2.png');
 	background-size: cover;
 	background-position: center;
 
@@ -69,9 +124,11 @@ export default {
 	align-items: center;
 	flex-direction: column;
 }
-.breakerImage {
+
+.section3 {
+	background-color: #fff2d0;
 	height: 100vh;
-	background-image: url('../assets/images/p3.png');
+	background-image: url('../assets/images/section3.png');
 	background-size: cover;
 	background-position: center;
 
@@ -80,9 +137,10 @@ export default {
 	align-items: center;
 	flex-direction: column;
 }
-.headerImage {
+
+.section4 {
 	height: 100vh;
-	background-image: url('../assets/images/landing1.jpg');
+	background-image: url('../assets/images/section4.png');
 	background-size: cover;
 	background-position: center;
 

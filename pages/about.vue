@@ -20,20 +20,11 @@
 					</p>
 				</b-col>
 				<b-col v-for="(person, index) in persons" :key="index" lg="3">
-					<b-card class="mt-2">
+					<b-card class="my-3">
 						<div :class="$style.profileAvatar">
 							<b-avatar button :src="person.image" size="10rem" />
 							<h5 class="mt-3">{{ person.name }}</h5>
 							<h6>{{ person.position }}</h6>
-							<!-- <div :class="$style.profileSocial">
-								<i :class="['fab fa-linkedin', $style.item]" />
-								<i
-									:class="[
-										'fab fa-twitter-square',
-										$style.item,
-									]"
-								/>
-							</div> -->
 						</div>
 					</b-card>
 				</b-col>

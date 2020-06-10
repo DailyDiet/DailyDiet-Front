@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Navbar />
-		<nuxt :class="$style.defaultLayout" />
+		<nuxt class="defaultLayout" />
 		<Footer />
 	</div>
 </template>
@@ -46,7 +46,11 @@ export default {
 	},
 };
 </script>
-<style lang="scss" module>
+<style lang="scss">
+$primary: #ff773d;
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
 .defaultLayout {
 	min-height: 80vh;
 }
