@@ -1,0 +1,134 @@
+<template>
+	<div>
+		<b-container>
+			<b-row :class="$style.flexStyle">
+				<h1 class="my-5">See All Posts</h1>
+				<div v-if="!isLoading" :class="['w-100', $style.flexStyle]">
+					<BlogCard
+						v-for="post in shownPosts"
+						:key="post.post_id"
+						:post="post"
+						:busy="busyDelete"
+						@delete="deletePost"
+					/>
+					<b-button
+						v-if="limit <= posts.length"
+						class="mt-2"
+						@click="limit += 5"
+					>
+						Load more ...
+					</b-button>
+				</div>
+				<b-spinner v-else variant="info" class="mt-5"></b-spinner>
+				<BlogForm :busy="busySubmit" @submit="handleSubmit" />
+			</b-row>
+		</b-container>
+	</div>
+</template>
+
+<script>
+import { createNewPostAPI, getAllPostsAPI, deletePostAPI } from '~/services';
+import BlogForm from '~/components/blog/BlogForm';
+import BlogCard from '~/components/blog/BlogCard';
+export default {
+	components: { BlogForm, BlogCard },
+	data: () => ({
+		limit: 5,
+		posts: [],
+		isLoading: false,
+		busySubmit: false,
+		busyDelete: false,
+	}),
+	computed: {
+		shownPosts() {
+			return this.posts.slice(0, this.limit);
+		},
+	},
+	mounted() {
+		this.getPosts();
+	},
+	methods: {
+		deletePost(post) {
+			this.busyDelete = true;
+			deletePostAPI(this, post.post_id).then(() => {
+				this.$bvToast
+					.toast('Post deleted.', {
+						title: 'Blog',
+						variant: 'success',
+						solid: true,
+					})
+					.catch(err => {
+						console.log(err);
+						this.$toastErrors(err);
+					})
+					.finally(() => {
+						this.busyDelete = false;
+					});
+			});
+		},
+		handleSubmit(formData) {
+			this.busySubmit = true;
+			const payload = {
+				...formData,
+				slug: formData.title,
+			};
+			createNewPostAPI(this, payload)
+				.then(({ data }) => {
+					this.$bvToast.toast(data.msg, {
+						title: 'Blog',
+						variant: 'success',
+						solid: true,
+					});
+					this.getPosts();
+				})
+				.catch(err => {
+					console.log(err);
+					this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.busySubmit = false;
+				});
+		},
+		getPosts() {
+			this.isLoading = true;
+			getAllPostsAPI(this)
+				.then(({ data }) => {
+					const postKeys = Object.entries(data);
+					this.posts = postKeys
+						.map(([id, obj]) => {
+							return {
+								...obj,
+								post_id: id,
+							};
+						})
+						.reverse();
+				})
+				.catch(err => {
+					console.log(err);
+					this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.isLoading = false;
+				});
+		},
+	},
+};
+</script>
+
+<style module lang="scss">
+.flexStyle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.headerImage {
+	height: 100vh;
+	background-image: url('../assets/images/bgblur.png');
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+</style>

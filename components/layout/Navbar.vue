@@ -28,6 +28,7 @@
 				<b-nav-item v-if="$auth.loggedIn" @click="$router.push('plan')">
 					Plan
 				</b-nav-item>
+				<b-nav-item @click="$router.push('blog')">Blog</b-nav-item>
 				<b-nav-item @click="$router.push('about')">About us</b-nav-item>
 			</b-navbar-nav>
 			<b-navbar-nav v-if="!isSearchPage" class="ml-auto">

@@ -5,7 +5,12 @@ Vue.mixin({
 		$toastErrors(err) {
 			let errors =
 				err.response && err.response.data && err.response.data.errors;
-
+			// if (!errors) {
+			// 	errors =
+			// 		err.response &&
+			// 		err.response.data &&
+			// 		err.response.data.error;
+			// }
 			if (errors) {
 				const errKeys = Object.keys(errors);
 				errKeys.forEach(error => {
