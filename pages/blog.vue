@@ -20,7 +20,11 @@
 					</b-button>
 				</div>
 				<b-spinner v-else variant="info" class="mt-5"></b-spinner>
-				<BlogForm :busy="busySubmit" @submit="handleSubmit" />
+				<BlogForm
+					v-if="$auth.loggedIn"
+					:busy="busySubmit"
+					@submit="handleSubmit"
+				/>
 			</b-row>
 		</b-container>
 	</div>
