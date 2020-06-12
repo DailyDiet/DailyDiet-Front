@@ -64,7 +64,7 @@
 					<b-dropdown-item v-b-modal.modify_password>
 						Modify Password
 					</b-dropdown-item>
-					<b-dropdown-item @click="$auth.logout()">
+					<b-dropdown-item @click="logOut()">
 						Sign Out
 					</b-dropdown-item>
 				</b-nav-item-dropdown>
@@ -98,7 +98,6 @@ export default {
 	},
 	data: () => ({
 		searchInput: '',
-		isLoading: false,
 	}),
 	computed: {
 		isSearchPage() {
@@ -119,10 +118,10 @@ export default {
 			});
 		},
 		logOut() {
-			this.isLoading = true;
-			this.$auth.logout().finally(() => {
-				this.isLoading = false;
-			});
+			this.$auth.logout();
+			this.$auth.$storage.removeUniversal('dailyDietActivate');
+			this.$auth.$storage.removeUniversal('accessToken');
+			this.$auth.$storage.removeUniversal('refreshToken');
 		},
 	},
 };
