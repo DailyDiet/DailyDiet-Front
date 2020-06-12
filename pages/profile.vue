@@ -72,7 +72,6 @@ export default {
 			getUserInfoAPI(this)
 				.then(({ data }) => {
 					this.userInfo = data;
-					console.log(data);
 				})
 				.catch(err => {
 					console.error(err);

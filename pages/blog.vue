@@ -69,7 +69,7 @@ export default {
 					this.getPosts();
 				})
 				.catch(err => {
-					console.log(err);
+					console.error(err);
 					this.$toastErrors(err);
 				})
 				.finally(() => {
@@ -91,7 +91,7 @@ export default {
 						.reverse();
 				})
 				.catch(err => {
-					console.log(err);
+					console.error(err);
 					this.$toastErrors(err);
 				})
 				.finally(() => {
