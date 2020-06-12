@@ -78,7 +78,7 @@ export default {
 					this.$emit('refresh');
 				})
 				.catch(err => {
-					console.log(err);
+					console.error(err);
 					this.$toastErrors(err);
 				})
 				.finally(() => {
