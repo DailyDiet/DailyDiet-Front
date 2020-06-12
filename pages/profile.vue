@@ -47,7 +47,7 @@
 			</b-row>
 			<hr />
 			<b-row :class="$style.flexStyle">
-				<h1 style="color: #ff773d;" class="my-5">Your Posts</h1>
+				<h1 class="my-5 text-primary">Your Posts</h1>
 				<div v-if="!isLoadingPost" :class="['w-100', $style.flexStyle]">
 					<BlogCard
 						v-for="post in shownPosts"

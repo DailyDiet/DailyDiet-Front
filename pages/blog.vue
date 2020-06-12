@@ -2,7 +2,7 @@
 	<div>
 		<b-container>
 			<b-row :class="$style.flexStyle">
-				<h1 class="my-5">See All Posts</h1>
+				<h1 class="my-5 text-primary">See All Posts</h1>
 				<div v-if="!isLoading" :class="['w-100', $style.flexStyle]">
 					<BlogCard
 						v-for="post in shownPosts"

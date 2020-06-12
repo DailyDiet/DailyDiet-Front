@@ -67,7 +67,7 @@ export default {
 			{ title: '2 meals', value: 'dovade' },
 			{ title: '3 meals', value: 'sevade' },
 		],
-		calorie: 0,
+		calorie: 10,
 		bmi: '',
 	}),
 	mounted() {
