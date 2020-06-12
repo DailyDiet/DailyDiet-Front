@@ -11,9 +11,9 @@
 			<b-form-spinbutton
 				id="calories"
 				v-model="calorie"
-				min="0"
+				min="10"
 				max="100000"
-				step="100"
+				step="10"
 				inline
 			/>
 			<label for="calories">Calories</label>

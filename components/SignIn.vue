@@ -94,6 +94,10 @@ export default {
 						'refreshToken',
 						data.refresh_token
 					);
+					this.$auth.$storage.setUniversal(
+						'dailyDietActivate',
+						data.is_active
+					);
 					this.$api.setToken(data.access_token, 'Bearer');
 				})
 				.catch(err => {

@@ -40,6 +40,7 @@ import RecipeModal from '~/components/recipe/RecipeModal.vue';
 import { getRecipeAPI } from '~/services';
 
 export default {
+	middleware: ['auth', 'activate'],
 	components: {
 		PlanCard,
 		PlanGenerator,

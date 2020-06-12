@@ -4,23 +4,30 @@
 			<b-row class="m-0 w-100">
 				<b-col lg="1" md="2" sm="1"></b-col>
 				<b-col lg="5" md="5" sm="10" class="text-center">
-					<h1>About Eat This Much</h1>
+					<h1>About Daily Diet</h1>
 					<p style="font-size: 24px;">
-						We're a small company focused on providing tools and
+						We're a small team focused on providing tools and
 						support for people who want to take control over their
 						nutrition. Given the saturation of information in the
 						diet industry, we focus on more pragmatic elements of
-						healthy eating such as planning, shopping and cooking.
+						healthy eating such as planning and cooking.
 					</p>
-					<b-button id="next_section" @click="$scrollTo(1)">
-						Lets start
+					<b-button
+						id="next_section"
+						@click="$auth.loggedIn ? $scrollTo(1) : $scrollTo(3)"
+					>
+						Let's start
 					</b-button>
 				</b-col>
 				<b-col lg="6" md="5" sm="1"> </b-col>
 			</b-row>
 		</div>
 		<div :class="$style.section2">
-			<PlanGenerator @update="generatePlan" @step="$scrollTo(3)" />
+			<span :class="$style.searchFood">Get Your Diet Plan</span>
+			<PlanGenerator
+				@update="generatePlan"
+				@step="$auth.loggedIn ? null : $scrollTo(3)"
+			/>
 		</div>
 		<div :class="$style.section3">
 			<b-row class="w-100">
@@ -51,7 +58,7 @@
 			<b-row class="m-0 w-100">
 				<b-col lg="6" md="2" sm="1"></b-col>
 				<b-col lg="4" md="5" sm="10" class="text-center">
-					<h3>Plase sign in or sign up</h3>
+					<h3>Plase Sign in or Sign up</h3>
 					<b-button @click="$router.push('login')">
 						sign in / sign up
 					</b-button>

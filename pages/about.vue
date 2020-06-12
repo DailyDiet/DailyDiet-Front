@@ -3,20 +3,20 @@
 		<b-container class="mt-5">
 			<b-row>
 				<b-col cols="12">
-					<h2>About Eat This Much</h2>
+					<h2>About Daily Diet</h2>
 					<p>
-						We're a small company focused on providing tools and
-						support for people who want to take control over their
-						nutrition. Given the saturation of information in the
-						diet industry, we focus on more pragmatic elements of
-						healthy eating such as planning, shopping and cooking.
-						This site is the latest part of our ongoing project to
-						make effective nutrition strategies available to
-						everyone, especially people who are too busy to get
-						started on their own. What began as Swole.me, a simple
-						tool to help bodybuilders hit macronutrient requirements
-						created by just Louis, has grown into the current
-						service supported by a small and dedicated team.
+						We're a small team on providing tools and support for
+						people who want to take control over their nutrition.
+						Given the saturation of information in the diet
+						industry, we focus on more pragmatic elements of healthy
+						eating such as planning and cooking. This site is the
+						latest part of our ongoing project to make effective
+						nutrition strategies available to everyone, especially
+						people who are too busy to get started on their own.
+						What began as Swole.me, a simple tool to help
+						bodybuilders hit macronutrient requirements created by
+						just Louis, has grown into the current service supported
+						by a small and dedicated team.
 					</p>
 				</b-col>
 				<b-col v-for="(person, index) in persons" :key="index" lg="3">

@@ -16,9 +16,16 @@ export function getAllPostsAPI(that) {
 	});
 }
 
-export function deletePostAPI(that, postId) {
+export function getBlogPostAPI(that, slug) {
 	return that.$api({
-		url: `/posts/delete/${postId}/`,
+		url: `/blog/${slug}`,
+		method: 'GET',
+	});
+}
+
+export function deleteBlogPostAPI(that, postId) {
+	return that.$api({
+		url: `/blog/posts/delete/${postId}/`,
 		method: 'DELETE',
 	});
 }

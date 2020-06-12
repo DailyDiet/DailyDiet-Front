@@ -33,9 +33,10 @@
 					class="d-inline-block"
 				>
 					<b-button
+						v-if="isPostOwner"
 						size="sm"
 						variant="danger"
-						@click="$emit('delete', post)"
+						@click="deleteBlogPost"
 					>
 						Delete
 					</b-button>
@@ -45,15 +46,44 @@
 	</b-card>
 </template>
 <script>
+import { deleteBlogPostAPI } from '~/services';
 export default {
 	props: {
 		post: {
 			type: Object,
 			required: true,
 		},
-		busy: {
-			type: Boolean,
-			default: false,
+	},
+	data: () => ({
+		busy: false,
+	}),
+	computed: {
+		isPostOwner() {
+			return (
+				this.post.author_email === this.post.current_user_mail &&
+				this.$auth.loggedIn
+			);
+		},
+	},
+	methods: {
+		deleteBlogPost() {
+			this.busy = true;
+			deleteBlogPostAPI(this, this.post.post_id)
+				.then(() => {
+					this.$bvToast.toast('Post deleted.', {
+						title: 'Blog',
+						variant: 'success',
+						solid: true,
+					});
+					this.$emit('refresh');
+				})
+				.catch(err => {
+					console.log(err);
+					this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.busy = false;
+				});
 		},
 	},
 };

@@ -9,6 +9,7 @@
 import jwtDecode from 'jwt-decode';
 import Navbar from '~/components/layout/Navbar';
 import Footer from '~/components/layout/Footer';
+import { getUserInfoAPI } from '~/services';
 export default {
 	components: {
 		Navbar,
@@ -42,7 +43,18 @@ export default {
 				this.$auth.$storage.getCookie('accessToken'),
 				'Bearer'
 			);
+			this.setConfirmation();
 		}
+	},
+	methods: {
+		setConfirmation() {
+			getUserInfoAPI(this).then(({ data }) => {
+				this.$auth.$storage.setUniversal(
+					'dailyDietActivate',
+					data.confirmed
+				);
+			});
+		},
 	},
 };
 </script>

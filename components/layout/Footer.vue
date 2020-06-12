@@ -4,11 +4,11 @@
 			<b-col lg="9">
 				<h4>Daily Diet</h4>
 				<p>
-					We're a small company focused on providing tools and support
+					We're a small team focused on providing tools and support
 					for people who want to take control over their nutrition.
 					Given the saturation of information in the diet industry, we
 					focus on more pragmatic elements of healthy eating such as
-					planning, shopping and cooking.
+					planning and cooking.
 				</p>
 			</b-col>
 			<b-col lg="3">

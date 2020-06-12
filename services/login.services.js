@@ -9,6 +9,13 @@ export function signUpAPI(that, data) {
 	});
 }
 
+export function resendConfrimationAPI(that) {
+	return that.$api({
+		url: '/users/signup/resendConfrimation',
+		method: 'GET',
+	});
+}
+
 export function modifyPasswordAPI(that, data) {
 	return that.$api({
 		url: '/users/signup/modify',

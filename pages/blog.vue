@@ -8,12 +8,11 @@
 						v-for="post in shownPosts"
 						:key="post.post_id"
 						:post="post"
-						:busy="busyDelete"
-						@delete="deletePost"
+						@refresh="getPosts"
 					/>
 					<b-button
 						v-if="limit <= posts.length"
-						class="mt-2"
+						class="my-2"
 						@click="limit += 5"
 					>
 						Load more ...
@@ -21,7 +20,10 @@
 				</div>
 				<b-spinner v-else variant="info" class="mt-5"></b-spinner>
 				<BlogForm
-					v-if="$auth.loggedIn"
+					v-if="
+						$auth.loggedIn &&
+						$auth.$storage.getCookie('dailyDietActivate')
+					"
 					:busy="busySubmit"
 					@submit="handleSubmit"
 				/>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import { createNewPostAPI, getAllPostsAPI, deletePostAPI } from '~/services';
+import { createNewPostAPI, getAllPostsAPI } from '~/services';
 import BlogForm from '~/components/blog/BlogForm';
 import BlogCard from '~/components/blog/BlogCard';
 export default {
@@ -41,7 +43,6 @@ export default {
 		posts: [],
 		isLoading: false,
 		busySubmit: false,
-		busyDelete: false,
 	}),
 	computed: {
 		shownPosts() {
@@ -52,24 +53,6 @@ export default {
 		this.getPosts();
 	},
 	methods: {
-		deletePost(post) {
-			this.busyDelete = true;
-			deletePostAPI(this, post.post_id).then(() => {
-				this.$bvToast
-					.toast('Post deleted.', {
-						title: 'Blog',
-						variant: 'success',
-						solid: true,
-					})
-					.catch(err => {
-						console.log(err);
-						this.$toastErrors(err);
-					})
-					.finally(() => {
-						this.busyDelete = false;
-					});
-			});
-		},
 		handleSubmit(formData) {
 			this.busySubmit = true;
 			const payload = {
