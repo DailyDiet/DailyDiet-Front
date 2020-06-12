@@ -52,41 +52,82 @@
 		</b-container>
 		<RecipeModal :show="show" :reciped="recipe" @close="closeRecipeModal" />
 		<b-sidebar id="sidebar-filter" title="Filter" backdrop>
-			<div class="px-3 py-2">
-				<b-form-input
-					v-model="search.value"
-					class="my-2"
-					placeholder="Enter your food"
-				/>
-				<b-form-select
-					v-model="selectedCategory"
-					class="my-2"
-					:options="categoryOptions"
-					value-field="key"
-					text-field="title"
-				>
-					<template #first>
-						<b-form-select-option :value="null" disabled>
-							-- Select category --
-						</b-form-select-option>
-					</template>
-				</b-form-select>
-				<b-form-tags
-					v-model="ingredients"
-					class="my-2"
-					placeholder="Enter ingredients id's"
-					:tag-validator="tagValidator"
-				/>
-				<b-button block @click="fetchElasticSearch">
-					Search
-				</b-button>
-			</div>
+			<template #default="{ hide }">
+				<div class="px-3 py-2">
+					<b-form-input
+						v-model="search.value"
+						class="my-2"
+						placeholder="Enter your food"
+					/>
+					<b-form-select
+						v-model="selectedCategory"
+						class="my-2"
+						:options="categoryOptions"
+						value-field="key"
+						text-field="title"
+					>
+						<template #first>
+							<b-form-select-option :value="null" disabled>
+								-- Select category --
+							</b-form-select-option>
+						</template>
+					</b-form-select>
+
+					<b-form-group
+						label="Time cooking"
+						label-for="time"
+						description="Enter your time per minute"
+					>
+						<b-form-input
+							id="time"
+							v-model="time.min"
+							type="number"
+							placeholder="min ..."
+						/>
+						<b-form-input
+							v-model="time.max"
+							type="number"
+							placeholder="max ..."
+						/>
+					</b-form-group>
+
+					<b-form-group
+						label="Calorie"
+						label-for="calorie"
+						description="Enter your calorie"
+					>
+						<b-form-input
+							id="calorie"
+							v-model="calorie.min"
+							type="number"
+							placeholder="min ..."
+						/>
+						<b-form-input
+							v-model="calorie.max"
+							type="number"
+							placeholder="max ..."
+						/>
+					</b-form-group>
+
+					<b-button
+						block
+						@click="
+							() => {
+								advanceSearch();
+								hide();
+							}
+						"
+					>
+						Search
+					</b-button>
+				</div>
+			</template>
 		</b-sidebar>
 	</div>
 </template>
 
 <script>
-import { elasticSearchAPI, getRecipeAPI } from '~/services';
+import { elasticSearchAPI, getRecipeAPI, advanceSearchAPI } from '~/services';
 import PlanCard from '~/components/plans/PlanCard.vue';
 import RecipeModal from '~/components/recipe/RecipeModal.vue';
 
@@ -105,7 +146,14 @@ export default {
 			offset: 12,
 		},
 		totalRows: 0,
-		ingredients: [],
+		time: {
+			min: '',
+			max: '',
+		},
+		calorie: {
+			min: '',
+			max: '',
+		},
 		selectedCategory: null,
 		categoryOptions: [
 			{
@@ -166,9 +214,6 @@ export default {
 		}
 	},
 	methods: {
-		tagValidator(tag) {
-			return !isNaN(tag);
-		},
 		fetchElasticSearch() {
 			this.isLoading = true;
 			const params = {
@@ -177,18 +222,9 @@ export default {
 				per_page: this.search.offset,
 			};
 
-			if (this.selectedCategory) {
-				params.category = this.selectedCategory;
-			}
-			if (this.ingredients.length) {
-				params.ingredients = this.ingredients.join(',');
-			}
-
 			this.$router.push({
 				query: {
 					query: this.search.value,
-					category: this.category,
-					ingredients: this.ingredients.join(','),
 					page: this.search.page,
 					per_page: this.search.offset,
 				},
@@ -221,6 +257,41 @@ export default {
 				.catch(err => {
 					console.error(err);
 					this.$toastErrors(err);
+				});
+		},
+		advanceSearch() {
+			this.isLoading = true;
+			const payload = {
+				text: this.search.value,
+				page: this.search.page,
+				per_page: this.search.offset,
+			};
+
+			if (this.selectedCategory) {
+				payload.category = this.selectedCategory;
+			}
+
+			if (this.time.min || this.time.max) {
+				payload.total_time = this.time;
+			}
+
+			if (this.calorie.min || this.calorie.max) {
+				payload.total_time = this.calories;
+			}
+
+			advanceSearchAPI(this, payload)
+				// eslint-disable-next-line camelcase
+				.then(({ data: { results, total_results_count } }) => {
+					// eslint-disable-next-line camelcase
+					this.totalRows = total_results_count;
+					this.foods = results;
+				})
+				.catch(err => {
+					console.error(err);
+					// this.$toastErrors(err);
+				})
+				.finally(() => {
+					this.isLoading = false;
 				});
 		},
 	},
