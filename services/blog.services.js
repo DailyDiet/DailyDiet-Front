@@ -16,6 +16,13 @@ export function getAllPostsAPI(that) {
 	});
 }
 
+export function getUserPostsAPI(that) {
+	return that.$api({
+		url: '/blog/posts/user',
+		method: 'GET',
+	});
+}
+
 export function getBlogPostAPI(that, slug) {
 	return that.$api({
 		url: `/blog/${slug}`,

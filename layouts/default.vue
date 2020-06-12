@@ -9,7 +9,7 @@
 import jwtDecode from 'jwt-decode';
 import Navbar from '~/components/layout/Navbar';
 import Footer from '~/components/layout/Footer';
-import { getUserInfoAPI } from '~/services';
+import { getUserInfoAPI, refreshTokenAPI } from '~/services';
 export default {
 	components: {
 		Navbar,
@@ -19,15 +19,7 @@ export default {
 		const token = this.$auth.$storage.getCookie('accessToken');
 		if (token) {
 			if (jwtDecode(token).exp < new Date().getTime() / 1000) {
-				await this.$api({
-					url: '/users/auth',
-					method: 'PUT',
-					headers: {
-						Authorization: `Bearer ${this.$auth.$storage.getCookie(
-							'refreshToken'
-						)}`,
-					},
-				})
+				await refreshTokenAPI(this)
 					.then(({ data }) => {
 						this.$auth.$storage.setUniversal(
 							'accessToken',

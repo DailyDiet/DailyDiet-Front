@@ -109,13 +109,4 @@ export default {
 	align-items: center;
 	flex-direction: column;
 }
-.headerImage {
-	height: 100vh;
-	background-image: url('../assets/images/bgblur.png');
-	background-size: cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
 </style>

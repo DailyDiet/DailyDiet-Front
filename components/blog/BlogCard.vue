@@ -59,10 +59,7 @@ export default {
 	}),
 	computed: {
 		isPostOwner() {
-			return (
-				this.post.author_email === this.post.current_user_mail &&
-				this.$auth.loggedIn
-			);
+			return this.$route.name === 'profile';
 		},
 	},
 	methods: {

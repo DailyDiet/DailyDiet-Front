@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import SignUp from '~/components/SignUp.vue';
-import SignIn from '~/components/SignIn.vue';
+import SignUp from '~/components/Login/SignUp.vue';
+import SignIn from '~/components/Login/SignIn.vue';
 export default {
 	components: { SignUp, SignIn },
 	data: () => ({

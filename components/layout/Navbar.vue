@@ -90,7 +90,7 @@
 	</b-navbar>
 </template>
 <script>
-import Modify from '~/components/Modify.vue';
+import Modify from '~/components/Login/Modify.vue';
 
 export default {
 	components: {
