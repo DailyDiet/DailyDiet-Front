@@ -85,6 +85,14 @@ export default {
 					'https://media-exp1.licdn.com/dms/image/C4D03AQHilMXqP1N1Yw/profile-displayphoto-shrink_200_200/0?e=1596672000&v=beta&t=ot3pc-Gzef5rlfWMczwKsg4Yxoom9QOqrnzo7CgyEyM',
 				link: 'https://www.linkedin.com/in/nimaafsharh/',
 			},
+			{
+				name: 'Alireza Toghyiani',
+				position: 'IOS developer',
+				image:
+					'https://media-exp1.licdn.com/dms/image/C5603AQGDv_oFI9W7HA/profile-displayphoto-shrink_800_800/0?e=1597276800&v=beta&t=bOZIkzrfR3ja4T559na-LqJI10HYrmcueIPv-3AJV7g',
+				link:
+					'https://www.linkedin.com/in/alireza-toghyiani-a06385149/',
+			},
 		],
 	}),
 };

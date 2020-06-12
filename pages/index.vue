@@ -38,7 +38,7 @@
 					class="d-flex justify-content-center align-items-center flex-column"
 				>
 					<span :class="$style.searchFood">Search Food</span>
-					<b-input-group>
+					<b-input-group size="lg">
 						<b-form-input
 							v-model="searchInput"
 							placeholder="Search"
@@ -58,7 +58,7 @@
 			<b-row class="m-0 w-100">
 				<b-col lg="6" md="2" sm="1"></b-col>
 				<b-col lg="4" md="5" sm="10" class="text-center">
-					<h3>Plase Sign in or Sign up</h3>
+					<h3>Please Sign in or Sign up</h3>
 					<b-button @click="$router.push('login')">
 						sign in / sign up
 					</b-button>

@@ -15,6 +15,9 @@
 								<b-button @click="fetchElasticSearch">
 									<i class="fas fa-search"></i>
 								</b-button>
+								<b-button v-b-toggle.sidebar-filter>
+									<i class="fas fa-filter"></i>
+								</b-button>
 							</b-input-group-append>
 						</b-input-group>
 					</b-col>
@@ -48,6 +51,37 @@
 			</b-row>
 		</b-container>
 		<RecipeModal :show="show" :reciped="recipe" @close="closeRecipeModal" />
+		<b-sidebar id="sidebar-filter" title="Filter" backdrop>
+			<div class="px-3 py-2">
+				<b-form-input
+					v-model="search.value"
+					class="my-2"
+					placeholder="Enter your food"
+				/>
+				<b-form-select
+					v-model="selectedCategory"
+					class="my-2"
+					:options="categoryOptions"
+					value-field="key"
+					text-field="title"
+				>
+					<template #first>
+						<b-form-select-option :value="null" disabled>
+							-- Select category --
+						</b-form-select-option>
+					</template>
+				</b-form-select>
+				<b-form-tags
+					v-model="ingredients"
+					class="my-2"
+					placeholder="Enter ingredients id's"
+					:tag-validator="tagValidator"
+				/>
+				<b-button block @click="fetchElasticSearch">
+					Search
+				</b-button>
+			</div>
+		</b-sidebar>
 	</div>
 </template>
 
@@ -71,6 +105,54 @@ export default {
 			offset: 12,
 		},
 		totalRows: 0,
+		ingredients: [],
+		selectedCategory: null,
+		categoryOptions: [
+			{
+				key: 'mostly_meat',
+				title: 'Mostly meat',
+			},
+			{
+				key: 'appetizers',
+				title: 'Appetizers',
+			},
+			{
+				key: 'drink',
+				title: 'Drink',
+			},
+			{
+				key: 'main_dish',
+				title: 'Main dish',
+			},
+			{
+				key: 'sandwich',
+				title: 'Sandwich',
+			},
+			{
+				key: 'dessert',
+				title: 'Dessert',
+			},
+			{
+				key: 'breakfast',
+				title: 'Breakfast',
+			},
+			{
+				key: 'protein_shake',
+				title: 'Protein shake',
+			},
+			{
+				key: 'salad',
+				title: 'Salad',
+			},
+			{
+				key: 'pasta',
+				title: 'Pasta',
+			},
+			{
+				key: 'other',
+				title: 'Other',
+			},
+		],
 	}),
 	watch: {
 		'search.page'() {
@@ -84,6 +166,9 @@ export default {
 		}
 	},
 	methods: {
+		tagValidator(tag) {
+			return !isNaN(tag);
+		},
 		fetchElasticSearch() {
 			this.isLoading = true;
 			const params = {
@@ -92,9 +177,18 @@ export default {
 				per_page: this.search.offset,
 			};
 
+			if (this.selectedCategory) {
+				params.category = this.selectedCategory;
+			}
+			if (this.ingredients.length) {
+				params.ingredients = this.ingredients.join(',');
+			}
+
 			this.$router.push({
 				query: {
 					query: this.search.value,
+					category: this.category,
+					ingredients: this.ingredients.join(','),
 					page: this.search.page,
 					per_page: this.search.offset,
 				},
